@@ -1,0 +1,596 @@
+{
+ "backend_git": {
+  "path": "/home/claude/Desktop/Dird",
+  "branch": "test-gpu",
+  "head": "6e64d63",
+  "dirty_entries": 2,
+  "status_sample": [
+   "M .gitignore",
+   "?? RetinaCare-Training-Lab/"
+  ]
+ },
+ "gui_git": {
+  "path": "/home/claude/Desktop/Dird/GUI/Hackthon dezine",
+  "branch": "test",
+  "head": "ac4a083",
+  "dirty_entries": 0,
+  "status_sample": []
+ },
+ "hardware": {
+  "gpu": {
+   "available": false
+  },
+  "gpu_compute_processes": "No devices were found\nUnable to determine the device handle for GPU0: 0000:01:00.0: Unknown Error",
+  "cpu_count": 16,
+  "platform": "Linux-7.3.0-9-generic-x86_64-with-glibc2.44",
+  "python": "3.12.15",
+  "mem_total_kib": "       31707936 kB",
+  "mem_available_kib": "   13739236 kB",
+  "disk_free_gib_lab": 164.9,
+  "ollama_running": true,
+  "torch": {
+   "version": "2.15.0+cu132",
+   "cuda_build": "13.2",
+   "cuda_available": false
+  }
+ },
+ "models": [
+  {
+   "manifest": "models/stage1_convnextv2l_768/manifest.json",
+   "model_id": "hierarchiretina-stage1-convnextv2l-768",
+   "task": "dr_screening_gate",
+   "architecture": "convnextv2_large+gem+attn_pool+mlp_head",
+   "license": "CC-BY-NC-4.0 weights; MIT code",
+   "source_url": "https://github.com/asifuddin01/HierarchiRetina/releases/download/v1.0/stage1_convnextv2l_768_best_auc_model.pth",
+   "onnx": "stage1.onnx",
+   "onnx_sha256_manifest": "9ad51e1f428dc59ab49f1f49e8f68a84cd23d8fd4c2c461b45b06bcc726880ac",
+   "input": {
+    "name": "image",
+    "data_type": "float32",
+    "shape": [
+     1,
+     3,
+     768,
+     768
+    ],
+    "color_space": "RGB",
+    "normalization": "imagenet mean/std after upstream preprocess_gate (BGR uint8 pipeline)"
+   },
+   "outputs": {
+    "schema": "single_logit",
+    "name": "logit",
+    "data_type": "float32",
+    "shape": [
+     1,
+     1
+    ],
+    "activation": "sigmoid applied by caller",
+    "gate_threshold": 0.2391715943813324,
+    "positive_route": "DR grades 1-5 including ungradable; negative route: grade 0"
+   },
+   "pytorch_checkpoints": [
+    "stage1_convnextv2l_768_best_auc_model.pth"
+   ],
+   "thresholds": {},
+   "files": [
+    "stage1.onnx"
+   ]
+  },
+  {
+   "manifest": "models/stage2_hsmoe_aunet/cws/manifest.json",
+   "model_id": "hierarchiretina-stage2-cws-hsmoe-aunet",
+   "task": "cotton_wool_spot_segmentation",
+   "architecture": "HSMoE-AUNet-CWS",
+   "license": "CC-BY-NC-4.0 weights; MIT code",
+   "source_url": "https://github.com/asifuddin01/HierarchiRetina/releases/download/v1.0/stage2_hsmoe_aunet_CWS_best_model.pth",
+   "onnx": "stage2_cws.onnx",
+   "onnx_sha256_manifest": "6c928a75b28884ca19a58fa11daa6020868af57081b07b347961ce7b4c967882",
+   "input": {
+    "name": "image",
+    "data_type": "float32",
+    "shape": [
+     1,
+     3,
+     1024,
+     1024
+    ],
+    "color_space": "RGB",
+    "normalization": "ImageNet mean/std after HierarchiRetina CWS circle crop and 1024 resize"
+   },
+   "outputs": {
+    "schema": "main_logits",
+    "name": "logits",
+    "data_type": "float32",
+    "shape": [
+     1,
+     1,
+     1024,
+     1024
+    ]
+   },
+   "pytorch_checkpoints": [
+    "stage2_hsmoe_aunet_CWS_best_model.pth"
+   ],
+   "thresholds": {
+    "deployed_probability_threshold": 0.4,
+    "threshold_operator": "greater_than"
+   },
+   "files": [
+    "stage2_cws.onnx",
+    "stage2_hsmoe_aunet_CWS_best_model.pth"
+   ]
+  },
+  {
+   "manifest": "models/stage2_hsmoe_aunet/ex/manifest.json",
+   "model_id": "hierarchiretina-stage2-ex-hsmoe-aunet",
+   "task": "hard_exudate_segmentation",
+   "architecture": "HSMoE-AUNet-EX",
+   "license": "CC-BY-NC-4.0 weights; MIT code",
+   "source_url": "https://github.com/asifuddin01/HierarchiRetina/releases/download/v1.0/stage2_hsmoe_aunet_EX_best_model.pth",
+   "onnx": "stage2_ex.onnx",
+   "onnx_sha256_manifest": "2aa92099f2333e3d1afe862a618a8436023bc03f14b5a8f62ea67debf2612207",
+   "input": {
+    "name": "image",
+    "data_type": "float32",
+    "shape": [
+     1,
+     3,
+     1024,
+     1024
+    ],
+    "color_space": "RGB",
+    "normalization": "ImageNet mean/std after HierarchiRetina EX circle crop and 1024 resize"
+   },
+   "outputs": {
+    "schema": "main_logits",
+    "name": "logits",
+    "data_type": "float32",
+    "shape": [
+     1,
+     1,
+     1024,
+     1024
+    ]
+   },
+   "pytorch_checkpoints": [
+    "stage2_hsmoe_aunet_EX_best_model.pth"
+   ],
+   "thresholds": {
+    "deployed_probability_threshold": 0.325,
+    "threshold_operator": "greater_than"
+   },
+   "files": [
+    "stage2_ex.onnx",
+    "stage2_hsmoe_aunet_EX_best_model.pth"
+   ]
+  },
+  {
+   "manifest": "models/stage2_hsmoe_aunet/he/manifest.json",
+   "model_id": "hierarchiretina-stage2-he-hsmoe-aunet",
+   "task": "hemorrhage_segmentation",
+   "architecture": "HSMoE-AUNet-HE",
+   "license": "CC-BY-NC-4.0 weights; MIT code",
+   "source_url": "https://github.com/asifuddin01/HierarchiRetina/releases/download/v1.0/stage2_hsmoe_aunet_HE_best_model.pth",
+   "onnx": "stage2_he.onnx",
+   "onnx_sha256_manifest": "16f767a8deb3751962d00abfaa5aca27fb40b43c64a77108c78610111260b966",
+   "input": {
+    "name": "image",
+    "data_type": "float32",
+    "shape": [
+     1,
+     3,
+     1024,
+     1024
+    ],
+    "color_space": "RGB",
+    "normalization": "ImageNet mean/std after HierarchiRetina HE circle crop and 1024 resize"
+   },
+   "outputs": {
+    "schema": "main_logits",
+    "name": "logits",
+    "data_type": "float32",
+    "shape": [
+     1,
+     1,
+     1024,
+     1024
+    ]
+   },
+   "pytorch_checkpoints": [
+    "stage2_hsmoe_aunet_HE_best_model.pth"
+   ],
+   "thresholds": {
+    "deployed_probability_threshold": 0.2,
+    "threshold_operator": "greater_than"
+   },
+   "files": [
+    "stage2_he.onnx",
+    "stage2_hsmoe_aunet_HE_best_model.pth"
+   ]
+  },
+  {
+   "manifest": "models/stage2_hsmoe_aunet/ma/manifest.json",
+   "model_id": "hierarchiretina-stage2-ma-hsmoe-aunet",
+   "task": "microaneurysm_segmentation",
+   "architecture": "HSMoE-AUNet-MA",
+   "license": "CC-BY-NC-4.0 weights; MIT code",
+   "source_url": "https://github.com/asifuddin01/HierarchiRetina/releases/download/v1.0/stage2_hsmoe_aunet_MA_best_model.pth",
+   "onnx": "stage2_ma.onnx",
+   "onnx_sha256_manifest": "ac874bee868bbd7109d1358deaa35ab59f38d7664a4ea7eec22e00c8be79aac5",
+   "input": {
+    "name": "image",
+    "data_type": "float32",
+    "shape": [
+     1,
+     3,
+     1024,
+     1024
+    ],
+    "color_space": "RGB",
+    "normalization": "ImageNet mean/std after HierarchiRetina MA circle crop and 1024 resize"
+   },
+   "outputs": {
+    "schema": "main_logits",
+    "name": "logits",
+    "data_type": "float32",
+    "shape": [
+     1,
+     1,
+     1024,
+     1024
+    ]
+   },
+   "pytorch_checkpoints": [
+    "stage2_hsmoe_aunet_MA_best_model.pth"
+   ],
+   "thresholds": {
+    "deployed_probability_threshold": 0.01,
+    "threshold_operator": "greater_than"
+   },
+   "files": [
+    "stage2_hsmoe_aunet_MA_best_model.pth",
+    "stage2_ma.onnx"
+   ]
+  },
+  {
+   "manifest": "models/stage2_swinhrunetpp/manifest.json",
+   "model_id": "hierarchiretina-stage2-vessel-swinhrunetpp",
+   "task": "vessel_segmentation",
+   "architecture": "SwinHRUNet++-vessel",
+   "license": "CC-BY-NC-4.0 weights; MIT code",
+   "source_url": "https://github.com/asifuddin01/HierarchiRetina/releases/download/v1.0/stage2_swinhrunetpp_best_dice.pth",
+   "onnx": "stage2_vessel.onnx",
+   "onnx_sha256_manifest": "cc7ef0bb23732c7a1c89954244df9b6a5523f516c3818821811c667d2d5d76e0",
+   "input": {
+    "name": "image",
+    "data_type": "float32",
+    "shape": [
+     1,
+     3,
+     512,
+     512
+    ],
+    "color_space": "RGB",
+    "normalization": "ImageNet mean/std after vessel FOV crop, CLAHE and green enhancement, 512 resize"
+   },
+   "outputs": {
+    "schema": "main_logits",
+    "name": "logits",
+    "data_type": "float32",
+    "shape": [
+     1,
+     1,
+     512,
+     512
+    ]
+   },
+   "pytorch_checkpoints": [
+    "stage2_swinhrunetpp_best_dice.pth"
+   ],
+   "thresholds": {
+    "deployed_probability_threshold": 0.46,
+    "threshold_operator": "greater_than_or_equal"
+   },
+   "files": [
+    "stage2_swinhrunetpp_best_dice.pth",
+    "stage2_vessel.onnx"
+   ]
+  },
+  {
+   "manifest": "models/stage3_lgdrg/manifest_fold0.json",
+   "model_id": "hierarchiretina-stage3-lgdrg-fold0",
+   "task": "lg_drg_grading",
+   "architecture": "LG-DRG-ConvNeXtV2-L",
+   "license": "CC-BY-NC-4.0 weights; MIT code",
+   "source_url": "https://github.com/asifuddin01/HierarchiRetina/releases/download/v1.0/stage3_lgdrg_best_fold0.pt",
+   "onnx": "stage3_lgdrg_fold0.onnx",
+   "onnx_sha256_manifest": "31f20d62f972a0a8f9119162c8a30b7e2a96509933f0a9bc9a3845b3a6129cb7",
+   "input": {
+    "name": "image",
+    "data_type": "float32",
+    "shape": [
+     1,
+     8,
+     512,
+     512
+    ],
+    "color_space": "RGB+5 masks",
+    "normalization": "ImageNet RGB after fundus crop, CLAHE, 512 letterbox; masks binary 0/1 in order MA HE EX CWS VESSEL"
+   },
+   "outputs": {
+    "schema": "lgdrg_logits",
+    "name": "logits",
+    "data_type": "float32",
+    "shape": [
+     1,
+     4
+    ]
+   },
+   "pytorch_checkpoints": [
+    "stage3_lgdrg_best_fold0.pt"
+   ],
+   "thresholds": {
+    "corn_thresholds": [
+     0.38,
+     0.6,
+     0.19
+    ],
+    "gradability_threshold": 0.1
+   },
+   "files": [
+    "stage3_lgdrg_best_fold0.pt",
+    "stage3_lgdrg_best_fold1.pt",
+    "stage3_lgdrg_best_fold2.pt",
+    "stage3_lgdrg_best_fold3.pt",
+    "stage3_lgdrg_best_fold4.pt",
+    "stage3_lgdrg_fold0.onnx",
+    "stage3_lgdrg_fold1.onnx",
+    "stage3_lgdrg_fold2.onnx",
+    "stage3_lgdrg_fold3.onnx",
+    "stage3_lgdrg_fold4.onnx"
+   ]
+  },
+  {
+   "manifest": "models/stage3_lgdrg/manifest_fold1.json",
+   "model_id": "hierarchiretina-stage3-lgdrg-fold1",
+   "task": "lg_drg_grading",
+   "architecture": "LG-DRG-ConvNeXtV2-L",
+   "license": "CC-BY-NC-4.0 weights; MIT code",
+   "source_url": "https://github.com/asifuddin01/HierarchiRetina/releases/download/v1.0/stage3_lgdrg_best_fold1.pt",
+   "onnx": "stage3_lgdrg_fold1.onnx",
+   "onnx_sha256_manifest": "3f0deb84cb04a6c301cf73efdd154fe18297252430e7c3afa36d2ab087092620",
+   "input": {
+    "name": "image",
+    "data_type": "float32",
+    "shape": [
+     1,
+     8,
+     512,
+     512
+    ],
+    "color_space": "RGB+5 masks",
+    "normalization": "ImageNet RGB after fundus crop, CLAHE, 512 letterbox; masks binary 0/1 in order MA HE EX CWS VESSEL"
+   },
+   "outputs": {
+    "schema": "lgdrg_logits",
+    "name": "logits",
+    "data_type": "float32",
+    "shape": [
+     1,
+     4
+    ]
+   },
+   "pytorch_checkpoints": [
+    "stage3_lgdrg_best_fold1.pt"
+   ],
+   "thresholds": {
+    "corn_thresholds": [
+     0.38,
+     0.6,
+     0.19
+    ],
+    "gradability_threshold": 0.1
+   },
+   "files": [
+    "stage3_lgdrg_best_fold0.pt",
+    "stage3_lgdrg_best_fold1.pt",
+    "stage3_lgdrg_best_fold2.pt",
+    "stage3_lgdrg_best_fold3.pt",
+    "stage3_lgdrg_best_fold4.pt",
+    "stage3_lgdrg_fold0.onnx",
+    "stage3_lgdrg_fold1.onnx",
+    "stage3_lgdrg_fold2.onnx",
+    "stage3_lgdrg_fold3.onnx",
+    "stage3_lgdrg_fold4.onnx"
+   ]
+  },
+  {
+   "manifest": "models/stage3_lgdrg/manifest_fold2.json",
+   "model_id": "hierarchiretina-stage3-lgdrg-fold2",
+   "task": "lg_drg_grading",
+   "architecture": "LG-DRG-ConvNeXtV2-L",
+   "license": "CC-BY-NC-4.0 weights; MIT code",
+   "source_url": "https://github.com/asifuddin01/HierarchiRetina/releases/download/v1.0/stage3_lgdrg_best_fold2.pt",
+   "onnx": "stage3_lgdrg_fold2.onnx",
+   "onnx_sha256_manifest": "a55301c7e27251047e10211dfb10ca7f73674c826d89c4e7a772f3476df0a3ab",
+   "input": {
+    "name": "image",
+    "data_type": "float32",
+    "shape": [
+     1,
+     8,
+     512,
+     512
+    ],
+    "color_space": "RGB+5 masks",
+    "normalization": "ImageNet RGB after fundus crop, CLAHE, 512 letterbox; masks binary 0/1 in order MA HE EX CWS VESSEL"
+   },
+   "outputs": {
+    "schema": "lgdrg_logits",
+    "name": "logits",
+    "data_type": "float32",
+    "shape": [
+     1,
+     4
+    ]
+   },
+   "pytorch_checkpoints": [
+    "stage3_lgdrg_best_fold2.pt"
+   ],
+   "thresholds": {
+    "corn_thresholds": [
+     0.38,
+     0.6,
+     0.19
+    ],
+    "gradability_threshold": 0.1
+   },
+   "files": [
+    "stage3_lgdrg_best_fold0.pt",
+    "stage3_lgdrg_best_fold1.pt",
+    "stage3_lgdrg_best_fold2.pt",
+    "stage3_lgdrg_best_fold3.pt",
+    "stage3_lgdrg_best_fold4.pt",
+    "stage3_lgdrg_fold0.onnx",
+    "stage3_lgdrg_fold1.onnx",
+    "stage3_lgdrg_fold2.onnx",
+    "stage3_lgdrg_fold3.onnx",
+    "stage3_lgdrg_fold4.onnx"
+   ]
+  },
+  {
+   "manifest": "models/stage3_lgdrg/manifest_fold3.json",
+   "model_id": "hierarchiretina-stage3-lgdrg-fold3",
+   "task": "lg_drg_grading",
+   "architecture": "LG-DRG-ConvNeXtV2-L",
+   "license": "CC-BY-NC-4.0 weights; MIT code",
+   "source_url": "https://github.com/asifuddin01/HierarchiRetina/releases/download/v1.0/stage3_lgdrg_best_fold3.pt",
+   "onnx": "stage3_lgdrg_fold3.onnx",
+   "onnx_sha256_manifest": "ee7c16614859ef3c8e8d1c8fbcc5a07388e3bd02622f74bdedcd8c4772b6fcfe",
+   "input": {
+    "name": "image",
+    "data_type": "float32",
+    "shape": [
+     1,
+     8,
+     512,
+     512
+    ],
+    "color_space": "RGB+5 masks",
+    "normalization": "ImageNet RGB after fundus crop, CLAHE, 512 letterbox; masks binary 0/1 in order MA HE EX CWS VESSEL"
+   },
+   "outputs": {
+    "schema": "lgdrg_logits",
+    "name": "logits",
+    "data_type": "float32",
+    "shape": [
+     1,
+     4
+    ]
+   },
+   "pytorch_checkpoints": [
+    "stage3_lgdrg_best_fold3.pt"
+   ],
+   "thresholds": {
+    "corn_thresholds": [
+     0.38,
+     0.6,
+     0.19
+    ],
+    "gradability_threshold": 0.1
+   },
+   "files": [
+    "stage3_lgdrg_best_fold0.pt",
+    "stage3_lgdrg_best_fold1.pt",
+    "stage3_lgdrg_best_fold2.pt",
+    "stage3_lgdrg_best_fold3.pt",
+    "stage3_lgdrg_best_fold4.pt",
+    "stage3_lgdrg_fold0.onnx",
+    "stage3_lgdrg_fold1.onnx",
+    "stage3_lgdrg_fold2.onnx",
+    "stage3_lgdrg_fold3.onnx",
+    "stage3_lgdrg_fold4.onnx"
+   ]
+  },
+  {
+   "manifest": "models/stage3_lgdrg/manifest_fold4.json",
+   "model_id": "hierarchiretina-stage3-lgdrg-fold4",
+   "task": "lg_drg_grading",
+   "architecture": "LG-DRG-ConvNeXtV2-L",
+   "license": "CC-BY-NC-4.0 weights; MIT code",
+   "source_url": "https://github.com/asifuddin01/HierarchiRetina/releases/download/v1.0/stage3_lgdrg_best_fold4.pt",
+   "onnx": "stage3_lgdrg_fold4.onnx",
+   "onnx_sha256_manifest": "659e65fb336342b2afc52385f4821a673e1b569b81454798820f4798fe876238",
+   "input": {
+    "name": "image",
+    "data_type": "float32",
+    "shape": [
+     1,
+     8,
+     512,
+     512
+    ],
+    "color_space": "RGB+5 masks",
+    "normalization": "ImageNet RGB after fundus crop, CLAHE, 512 letterbox; masks binary 0/1 in order MA HE EX CWS VESSEL"
+   },
+   "outputs": {
+    "schema": "lgdrg_logits",
+    "name": "logits",
+    "data_type": "float32",
+    "shape": [
+     1,
+     4
+    ]
+   },
+   "pytorch_checkpoints": [
+    "stage3_lgdrg_best_fold4.pt"
+   ],
+   "thresholds": {
+    "corn_thresholds": [
+     0.38,
+     0.6,
+     0.19
+    ],
+    "gradability_threshold": 0.1
+   },
+   "files": [
+    "stage3_lgdrg_best_fold0.pt",
+    "stage3_lgdrg_best_fold1.pt",
+    "stage3_lgdrg_best_fold2.pt",
+    "stage3_lgdrg_best_fold3.pt",
+    "stage3_lgdrg_best_fold4.pt",
+    "stage3_lgdrg_fold0.onnx",
+    "stage3_lgdrg_fold1.onnx",
+    "stage3_lgdrg_fold2.onnx",
+    "stage3_lgdrg_fold3.onnx",
+    "stage3_lgdrg_fold4.onnx"
+   ]
+  }
+ ],
+ "datasets_present": {
+  "aptos": {
+   "lab_raw_files": 0
+  },
+  "idrid": {
+   "lab_raw_files": 0
+  },
+  "drive": {
+   "lab_raw_files": 0
+  },
+  "fgadr": {
+   "lab_raw_files": 0
+  },
+  "ddr": {
+   "lab_raw_files": 0
+  },
+  "external_candidates": {
+   "/home/claude/Downloads": []
+  }
+ },
+ "upstream_arch_source": {
+  "path": "/home/claude/Desktop/Dird/ai_engine/.venv/hierarchiretina-src",
+  "exists": true
+ },
+ "kaggle_cli": "/home/claude/Desktop/Dird/RetinaCare-Training-Lab/.venv/bin/kaggle",
+ "kaggle_credentials_present": false
+}

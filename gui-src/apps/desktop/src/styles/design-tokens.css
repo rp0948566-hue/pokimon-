@@ -1,0 +1,76 @@
+/**
+ * Design Tokens — PokéRescue Sentinel
+ * Recreating the pixel-accurate UI frame visible in reference image
+ */
+
+:root {
+  /* Page Outer Backdrop (Transparent, removing unwanted black fill) */
+  --color-page-bg: transparent;
+
+  /* Main Frame Substrate & Dot Grid */
+  --color-frame-bg: #D8D8D8;
+  --color-dot-pattern: #9A9A9A;
+  --dot-grid-size: 6px;
+  --dot-grid-radius: 0.85px;
+
+  /* Outer Frame Borders & Radii (Shorter inner corner radius removed so border curve governs) */
+  --border-frame: none;
+  --radius-frame: 0px;
+
+  /* Bottom Apple Glass Dock Bar Widget */
+  --widget-width: min(540px, calc(100% - 48px));
+  --widget-radius: 26px;
+  --widget-bottom: 24px;
+  --widget-tile-radius: 16px;
+  --rim-cyan: rgba(145, 200, 255, 0.85);
+  --rim-amber: rgba(255, 220, 170, 0.85);
+
+  /* Off TV Screen Center Panel */
+  --screen-width: 80%;
+  --screen-height: 80%;
+  --screen-margin: auto;
+  --screen-bg: #08080a;
+  --screen-bezel: 1.5px solid rgba(255, 255, 255, 0.1);
+  --screen-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.12), inset 0 0 30px rgba(0, 0, 0, 0.95), 0 12px 36px rgba(0, 0, 0, 0.35);
+  --radius-screen-panel: 22px;
+  --color-pink-panel: #08080a; /* Alias for backwards compatibility */
+  --radius-pink-panel: 22px;
+
+  /* Apple Glassmorphism Surrounding Panels */
+  --glass-bg: rgba(255, 255, 255, 0.45);
+  --glass-bg-subtle: rgba(255, 255, 255, 0.35);
+  --glass-blur: blur(20px) saturate(190%);
+  --glass-border: 1px solid rgba(255, 255, 255, 0.65);
+  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.06), inset 0 1px 1px 0 rgba(255, 255, 255, 0.8);
+
+  /* Side Panels */
+  --panel-width: clamp(220px, 18vw, 280px);
+  --color-panel-left-upper: rgba(255, 255, 255, 0.45);
+  --color-panel-right-upper: rgba(255, 255, 255, 0.45);
+  --color-panel-lower: rgba(255, 255, 255, 0.38);
+  --radius-panel-upper: 20px;
+  --radius-panel-lower: 16px;
+
+  /* Connected Bottom Glass Dock (Connecting left to right with balanced spacing) */
+  --dock-height: clamp(110px, 16vh, 150px);
+  --radius-dock: 18px;
+  --color-panel-bottom: rgba(255, 255, 255, 0.42);
+  --border-panel-bottom: 1px solid rgba(255, 255, 255, 0.65);
+  --radius-panel-bottom: 18px;
+
+  /* Internal Surfaces & Layout */
+  --color-bg-surface: rgba(255, 255, 255, 0.9);
+  --color-bg-surface-elevated: #ffffff;
+
+  /* Typography */
+  --font-family-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-family-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  /* Spacing Scale */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+}

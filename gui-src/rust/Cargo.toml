@@ -1,0 +1,35 @@
+[package]
+name = "retinacare-desktop"
+version = "0.1.0"
+edition = "2021"
+description = "RetinaCare AI Screening Suite - 100% Pure Rust Desktop Executable for Ubuntu"
+
+[dependencies]
+eframe = { version = "0.37.0", features = ["default", "glow"] }
+rfd = "0.17.2"
+image = "0.25.10"
+lopdf = "0.46.0"
+sha2 = "0.10.9"
+zeroize = "1"
+aes-gcm = "0.10.3"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1.0"
+retinacare-ai-bridge = { path = "../../../native/crates/retinacare-ai-bridge", features = ["cuda"] }
+retinacare-app = { path = "../../../native/crates/retinacare-app" }
+retinacare-persistence = { path = "../../../native/crates/retinacare-persistence" }
+retinacare-reports = { path = "../../../native/crates/retinacare-reports" }
+retinacare-domain = { path = "../../../native/crates/retinacare-domain" }
+ureq = { version = "3.5.0", default-features = false, features = ["rustls", "json"] }
+keyring = { version = "3", features = ["async-secret-service", "async-io", "crypto-rust"] }
+
+[[bin]]
+name = "retinacare"
+path = "src/main.rs"
+
+[profile.release]
+opt-level = 3
+lto = "thin"
+strip = true
+
+[build-dependencies]
+winres = "0.1"

@@ -1,0 +1,19 @@
+# Vessel segmentation on DRIVE training references (16 train / 4 val; test refs withheld).
+name: vessel_drive
+encoder: resnet34
+pretrained: true
+scale: 1.0
+patch: 512
+batch_size: 4
+patches_per_image: 24
+pos_bias: 0.3
+epochs: 40
+lr: 3.0e-4
+weight_decay: 1.0e-4
+freeze_epochs: 0
+warmup_epochs: 2
+patience: 10
+grad_accum: 1
+amp: true
+seed: 42
+num_workers: 4

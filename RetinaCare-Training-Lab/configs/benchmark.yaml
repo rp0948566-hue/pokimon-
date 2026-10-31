@@ -1,0 +1,11 @@
+# Baseline + candidate evaluation protocol (frozen before any candidate exists).
+screening:
+  positive_rule: "grade >= 1"          # matches deployed Stage I manifest (positive route = DR grades 1-5)
+  stage1_threshold_source: models/stage1_convnextv2l_768/manifest.json   # 0.2391715943813324, operator >=
+grading:
+  classes: [0, 1, 2, 3, 4]
+segmentation:
+  threshold_policy: "deployed thresholds for baseline (MA 0.01, vessel 0.46); candidate threshold chosen on VAL only"
+  empty_gt_policy: "excluded from mean Dice, counted in n_empty_gt; FP pixels stay in pooled counts"
+bootstrap: {n: 1000, alpha: 0.05, min_samples: 20}
+locked_test: "evaluated once by evaluate_candidate.py --final; lock record in experiments/locked_test_used.json"

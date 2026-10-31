@@ -1,0 +1,1651 @@
+{
+  "app": {
+    "name": "DIRD+",
+    "tagline": "Detección de Retinopatía Diabética"
+  },
+  "ui": {
+    "close": "Cerrar",
+    "loading": "Cargando...",
+    "loadingImage": "Cargando imagen...",
+    "creating": "Creando...",
+    "saving": "Guardando...",
+    "saveChanges": "Guardar Cambios",
+    "createSession": "Crear Estudio",
+    "error": "Error",
+    "success": "Éxito",
+    "export": "Exportar",
+    "download": "Descargar",
+    "select": "Seleccionar",
+    "continue": "Continuar",
+    "yes": "Sí",
+    "no": "No",
+    "refresh": "Actualizar",
+    "comingSoon": {
+      "general": "Próximamente...",
+      "analysis": "El análisis AI estará disponible próximamente",
+      "reports": "La generación de reportes estará disponible próximamente"
+    },
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "exit": "Salir",
+    "loadingPDF": "Cargando PDF...",
+    "failedToLoadPDF": "Error al cargar el documento PDF",
+    "markdownLoadError": "No se pudo cargar el archivo",
+    "unknownError": "Error desconocido",
+    "markdownLoadErrorTitle": "Error al cargar el archivo"
+  },
+  "common": {
+    "confirm": "Confirmar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "error": {
+      "dbBlocked": "Por favor cierra otras pestañas de esta aplicación para permitir la actualización de la base de datos.",
+      "desktopRuntimeRequired": "La base de datos cifrada de pacientes solo está disponible en la aplicación de escritorio DIRD+. Abre la aplicación de escritorio para continuar."
+    }
+  },
+  "messages": {
+    "info": "Información",
+    "warning": "Advertencia"
+  },
+  "success": {
+    "deletePatient": "Paciente eliminado correctamente",
+    "archivePatient": "Paciente archivado",
+    "unarchivePatient": "Paciente desarchivado"
+  },
+  "errors": {
+    "savePatient": "Error al guardar el paciente",
+    "saveSession": "Error al guardar el estudio",
+    "unknown": "Error desconocido",
+    "exportSession": "Error al exportar el estudio.",
+    "deleteImage": "Error al eliminar la imagen",
+    "imageProcessing": "Error al procesar la imagen",
+    "deleteSession": "Error al eliminar el estudio.",
+    "duplicateSession": "Error al duplicar el estudio.",
+    "deletePatient": "Error al eliminar el paciente.",
+    "archivePatient": "Error al archivar el paciente.",
+    "unarchivePatient": "Error al desarchivar el paciente.",
+    "processingImages": "Error procesando imágenes: {{error}}",
+    "drClassification": {
+      "noClassification": "No se pudo generar la clasificación",
+      "noClassifications": "No se pudieron generar las clasificaciones"
+    },
+    "sessionCreation": "Error al crear el estudio",
+    "exportPasswordRequired": "Configura la contraseña de exportación en Ajustes → Seguridad."
+  },
+  "confirmations": {
+    "deleteImage": "¿Estás seguro de que quieres eliminar esta imagen y todos sus análisis asociados?",
+    "deleteSession": "¿Estás seguro de que quieres eliminar este estudio y todos sus datos? Esta acción es irreversible.",
+    "duplicateSession": "¿Estás seguro de que deseas duplicar este estudio? Esta acción creará una copia con los mismos elementos pero desbloqueada.",
+    "deletePatient": "¿Estás seguro de que quieres eliminar este paciente y todos sus datos? Esta acción es irreversible.",
+    "deletePatientTitle": "Eliminar Paciente",
+    "archivePatient": "¿Estás seguro de que quieres archivar este paciente?",
+    "unarchivePatient": "¿Estás seguro de que quieres desarchivar este paciente?",
+    "archivePatientTitle": "Archivar Paciente",
+    "unarchivePatientTitle": "Desarchivar Paciente",
+    "deleteReportTitle": "Eliminar Informe",
+    "finalizeReportTitle": "Finalizar Informe",
+    "deleteImageTitle": "Eliminar Imagen",
+    "deleteSessionTitle": "Eliminar Estudio",
+    "duplicateSessionTitle": "Duplicar Estudio"
+  },
+  "patients": {
+    "title": "Pacientes",
+    "create": "Crear Paciente",
+    "edit": "Editar Paciente",
+    "delete": "Eliminar Paciente",
+    "name": "Nombre",
+    "id": "ID de Paciente",
+    "years": "años",
+    "idLabel": "ID: ",
+    "infoTitle": "Información del Paciente",
+    "dateOfBirth": "Fecha de Nacimiento",
+    "registeredOn": "Registrado el",
+    "showArchived": "Mostrar archivados",
+    "searchPlaceholder": "Buscar por nombre o ID...",
+    "description": "Gestiona los pacientes y sus estudios de análisis",
+    "notFound": "No se encontraron pacientes",
+    "empty": "No hay pacientes registrados. Crea uno para comenzar.",
+    "sessions": "estudios",
+    "status": {
+      "no_report": "Sin Informe",
+      "preliminary": "Borrador"
+    },
+    "medicalLabels": {
+      "diabetes": "Diabetes",
+      "hta": "HTA",
+      "dlp": "DLP"
+    },
+    "fields": {
+      "name": "Nombre",
+      "medications": "Medicamentos"
+    },
+    "gender": {
+      "other": "Otro"
+    },
+    "filter": {
+      "allStatus": "Todos los estados",
+      "pendingReport": "Pendientes de Informe"
+    },
+    "placeholders": {
+      "id": "P-001",
+      "name": "Juan Pérez"
+    },
+    "form": {
+      "editDescription": "Edita la información del paciente",
+      "createDescription": "Completa los datos para crear un nuevo paciente",
+      "medicalHistory": "Antecedentes Médicos",
+      "diabetes": "Diabetes",
+      "diabetesType": "Tipo de Diabetes",
+      "selectType": "Seleccione tipo",
+      "types": {
+        "type1": "Tipo 1",
+        "type2": "Tipo 2",
+        "gestational": "Gestacional",
+        "other": "Otro"
+      },
+      "diabetesDuration": "Años con Diabetes",
+      "diabetesDurationPlaceholder": "Años desde diagnóstico",
+      "hta": "Hipertensión Arterial (HTA)",
+      "dlp": "Dislipidemia (DLP)",
+      "medicationsPlaceholder": "Lista de medicamentos separados por comas",
+      "otherConditions": "Otros Antecedentes",
+      "otherConditionsPlaceholder": "Otros antecedentes médicos relevantes..."
+    }
+  },
+  "sessions": {
+    "title": "Estudios",
+    "session": "Estudio",
+    "sessionLabel": "Estudio ",
+    "create": "Nuevo Estudio",
+    "edit": "Editar Estudio",
+    "delete": "Eliminar Estudio",
+    "locked": "Estudio Bloqueado",
+    "compareTitle": "Comparación de Estudios",
+    "compareAction": "Comparar ({{count}}) Estudios",
+    "notesTitle": "Notas del Estudio",
+    "galleryTitle": "Galería de Imágenes",
+    "empty": "No hay estudios registrados. Crea uno para comenzar el análisis.",
+    "status": {
+      "active": "Activo"
+    },
+    "tabs": {
+      "images": "Imágenes",
+      "analysis": "Análisis IA",
+      "report": "Reporte"
+    },
+    "fields": {
+      "name": "Nombre",
+      "date": "Fecha",
+      "type": "Tipo",
+      "description": "Descripción",
+      "images": "Imágenes"
+    },
+    "form": {
+      "name": "Nombre del estudio",
+      "date": "Fecha",
+      "notes": "Notas (opcional)",
+      "notesPlaceholder": "Agregar notas sobre el estudio...",
+      "operator": "Operador (clínico)",
+      "operatorPlaceholder": "Nombre del profesional que realiza el estudio",
+      "create": "Crear Estudio",
+      "createDescription": "Completa la información para crear un nuevo estudio",
+      "update": "Actualizar Estudio",
+      "editDescription": "Actualiza la información del estudio"
+    },
+    "reportHistory": {
+      "title": "Historial de Informes",
+      "description": "Todos los informes generados para este estudio"
+    },
+    "duplicate": "Duplicar Estudio",
+    "duplicateSuccess": "Estudio duplicado exitosamente",
+    "compareSuccess": "Estudio combinado creado exitosamente",
+    "deleteSuccess": "Estudio eliminado exitosamente"
+  },
+  "upload": {
+    "selectEye": "Seleccionar ojo:",
+    "addImage": "Añadir Imagen",
+    "galleryEmpty": "No hay imágenes en esta estudio. Sube algunas para comenzar el análisis.",
+    "eye": {
+      "left": "OI (Izquierdo)",
+      "right": "OD (Derecho)",
+      "leftLabel": "OI (Ojo Izquierdo)",
+      "rightLabel": "OD (Ojo Derecho)"
+    },
+    "dropzone": "Arrastra archivos aquí o haz click para seleccionar",
+    "accepted": "Formatos soportados: JPG, PNG",
+    "maxSize": "Tamaño máximo: 1MB",
+    "noImage": "Sin imagen",
+    "modal": {
+      "title": "Subiendo Imágenes",
+      "completed": "Subida Completada",
+      "description": "Comprimiendo y guardando imágenes en tu dispositivo",
+      "descriptionComplete": "{{completed}} de {{total}} imágenes subidas exitosamente",
+      "imagesUploaded": "Imágenes subidas",
+      "imagesFailed": "{{count}} imagen(es) con error",
+      "pleaseWait": "Por favor espera, este proceso puede tardar unos momentos..."
+    },
+    "gallery": {
+      "viewDetections": "Ver {{count}} detecciones",
+      "viewImage": "Ver imagen",
+      "processingAI": "Procesando IA...",
+      "detectedCount": "detectadas",
+      "deleteImage": "Eliminar imagen",
+      "reprocessAI": "Reprocesar con IA",
+      "moveToRight": "A Ojo Derecho",
+      "moveToLeft": "A Ojo Izquierdo",
+      "imageLoadError": "Error al cargar imagen"
+    },
+    "photoLimitExceeded": "Límite de {{limit}} fotos por estudio alcanzado. No se pueden subir más imágenes.",
+    "photoLimitWarning": "Solo se pueden subir {{available}} imágenes más (máximo {{limit}} por estudio).",
+    "imagesCount": "{{count}} de {{limit}} imágenes subidas",
+    "deleteImageSuccess": "Imagen eliminada exitosamente"
+  },
+  "canvas": {
+    "tools": {
+      "title": "Herramientas",
+      "select": "Seleccionar",
+      "bbox": "Caja de Detección",
+      "segment": "Segmentación",
+      "eraser": "Borrador",
+      "circle": "Círculo",
+      "ruler": "Regla",
+      "landmark": "Landmarks",
+      "pan": "Desplazar",
+      "zoom": "Zoom",
+      "cup": "Copa Óptica",
+      "imageProcessing": "Realce de imagen",
+      "selectInstruction": "Haz clic en una anotación para seleccionarla. Puedes arrastrar para mover o usar los puntos para redimensionar.",
+      "bboxInstruction": "Haz clic y arrastra para dibujar una caja de detección",
+      "eraserInstruction": "Haz clic sobre cualquier anotación o medida para eliminarla permanentemente.",
+      "panInstruction": "Haz clic y arrastra para mover la imagen. También puedes usar el botón central del mouse en cualquier momento.",
+      "zoomInstruction": "Haz clic sobre una marca para hacer zoom sobre ella. Si ya estás con zoom, haz clic fuera para restablecer. Ctrl+Clic para alejar. Usa la rueda del mouse para zoom continuo.",
+      "rulerInstruction": "Haz clic en el punto de origen, luego en el destino para medir la distancia en Diámetros de Disco (DD)",
+      "landmarkInstruction": "Haz clic para colocar referencias anatómicas (disco óptico o fóvea). Arrastra para reposicionar.",
+      "cupInstruction": "Haz clic para abrir el editor de copa del disco óptico",
+      "toggleClassList": "Alternar lista de clases rápida",
+      "showClassList": "Mostrar Lista de Clases",
+      "hideClassList": "Ocultar Lista de Clases"
+    },
+    "quickClassSelection": "Selección Rápida de Clases",
+    "classPreSelected": "La próxima anotación será:",
+    "layers": {
+      "title": "Capas",
+      "opacity": "Opacidad",
+      "original": "Imagen Original",
+      "ai_detections": "Detecciones IA",
+      "ai_segmentations": "Segmentaciones IA",
+      "manual": "Anotaciones Manuales",
+      "measurements": "Medidas",
+      "quadrants": "Cuadrantes",
+      "macular_zones": "Zonas de Edema Macular",
+      "circinate_rings": "Anillos Circinados",
+      "show": "Mostrar capa",
+      "hide": "Ocultar capa",
+      "showLabels": "Mostrar etiquetas",
+      "hideLabels": "Ocultar etiquetas",
+      "lock": "Bloquear capa",
+      "unlock": "Desbloquear capa",
+      "deleteAnnotation": "Eliminar",
+      "editAnnotationClass": "Editar clase",
+      "convertAndEdit": "Convertir a manual / Editar",
+      "hideAllLabels": "Ocultar todas las etiquetas",
+      "showAllLabels": "Mostrar todas las etiquetas",
+      "hideAllMarks": "Ocultar todas las marcas",
+      "showAllMarks": "Mostrar todas las marcas"
+    },
+    "classSelection": {
+      "title": "Seleccionar clase",
+      "description": "Elige la clase para esta anotación",
+      "loading": "Cargando clases...",
+      "label": "Clase de anotación",
+      "placeholder": "Selecciona una clase...",
+      "other": "Otro...",
+      "customLabel": "Nombre de nueva clase",
+      "customPlaceholder": "Escribe el nombre de la clase...",
+      "alert": "Por favor selecciona o escribe una clase",
+      "confirm": "Confirmar"
+    },
+    "redetection": {
+      "title": "Re-detección IA",
+      "description": "Esto eliminará todas las detecciones de IA actuales para esta imagen y volverá a ejecutar el análisis. ¿Continuar?"
+    },
+    "resetZoom": "Centrar y reiniciar zoom",
+    "loadingDetections": "Cargando detecciones...",
+    "noDetectionsOnImage": "No hay detecciones en esta imagen",
+    "overlays": {
+      "macular": {
+        "detectionTitle": "Detección {{method}}",
+        "zoneInfo": "Zona: {{radius}} μm desde fóvea",
+        "statusLabel": "Estado: {{status}}",
+        "statusDetected": "⚠️ DETECTADO",
+        "statusNotDetected": "✓ No detectado",
+        "exudatesCount": "Exudados en zona: {{count}}",
+        "circinatePattern": "Patrón circinado: SÍ",
+        "details": "Detalles: {{description}}",
+        "noneFound": "No se detectaron exudados duros",
+        "noneInZone": "No hay exudados duros dentro de la zona foveal",
+        "onlyFewInZone": "Solo {{count}} exudado(s) duro(s) dentro de la zona ({{min}} requeridos)",
+        "detectedInZone": "{{count}} exudado(s) duro(s) dentro de {{distance}} μm de la fóvea",
+        "detectedInZoneWithPattern": "{{count}} exudado(s) duro(s) formando un patrón circinado dentro de {{distance}} μm de la fóvea"
+      },
+      "quadrants": {
+        "fallbackWarning": "⚠ Modo fallback: Coloca landmarks para referencia anatómica"
+      }
+    },
+    "errors": {
+      "saveAnnotationError": "Error al guardar la anotación. Por favor intenta de nuevo.",
+      "redetectionError": "Error al ejecutar la re-detección.",
+      "invalidBboxError": "La anotación tiene valores inválidos. Por favor intenta de nuevo."
+    },
+    "undo": "Deshacer",
+    "redo": "Rehacer",
+    "opticDiscCupping": {
+      "title": "Excavación del Disco Óptico",
+      "description": "Análisis de la relación copa/disco",
+      "noData": "No se detectaron disco óptico y copa para realizar el análisis.",
+      "cupDiscRatio": "Relación Copa/Disco (C/D)",
+      "vertical": "Vertical",
+      "horizontal": "Horizontal",
+      "average": "Promedio",
+      "rimDistances": "Distancias del Anillo Neuroretiniano (μm)",
+      "superior": "Superior",
+      "inferior": "Inferior",
+      "nasal": "Nasal",
+      "temporal": "Temporal",
+      "noteTitle": "⚠️ Nota",
+      "glaucomaNote": "C/D ratio > 0.6 puede requerir evaluación adicional para glaucoma.",
+      "importantInfoTitle": "ℹ️ Información importante",
+      "disclaimerPart1": "Las mediciones en micrómetros (μm) asumen que el disco óptico tiene un diámetro estándar de",
+      "standardDiameter": "1500 μm",
+      "disclaimerPart2": ". El diámetro real puede variar entre individuos, lo que puede afectar la precisión de estas mediciones."
+    },
+    "microaneurysm": {
+      "scattered": "Dispersos",
+      "clustered": "Agrupados",
+      "diffuse": "Difusos",
+      "title": "Análisis de Microaneurismas",
+      "description": "Detección de microaneurismas retinianos",
+      "totalDetected": "Total Detectados",
+      "distributionPattern": "Patrón de Distribución",
+      "infoTitle": "ℹ️ Información",
+      "infoText": "Los microaneurismas son uno de los primeros signos de retinopatía diabética."
+    },
+    "hemorrhage": {
+      "title": "Análisis de Hemorragias Retinianas",
+      "description": "Detección de hemorragias en la retina",
+      "totalDetected": "Total Detectadas",
+      "distributionByQuadrant": "Distribución por Cuadrante",
+      "superior": "Superior",
+      "temporal": "Temporal",
+      "nasal": "Nasal",
+      "inferior": "Inferior"
+    },
+    "circinate": {
+      "title": "Análisis de Anillos Circinados",
+      "description": "Detección de patrones de exudados duros formando anillos alrededor de la fóvea",
+      "method": "Método:",
+      "exudatesInMacularZone": "Exudados en zona macular:"
+    },
+    "quadrant": {
+      "noAnalysisAvailable": "No hay análisis disponible",
+      "title": "Análisis por Cuadrantes",
+      "anatomical": "Anatómico",
+      "fallback": "Aproximado",
+      "opticDisc": "Disco Óptico",
+      "fovea": "Fóvea",
+      "totalLesions": "Total de Lesiones",
+      "fallbackWarning": "Usando división basada en el centro. Coloca los puntos de referencia para una referencia anatómica precisa."
+    },
+    "imageProcessing": {
+      "errorProcessing": "Error al procesar imagen",
+      "filterAdded": "Filtro agregado",
+      "noProcessedImage": "No hay imagen procesada para descargar",
+      "errorGenerating": "Error al generar imagen",
+      "imageDownloaded": "Imagen descargada",
+      "filtersReset": "Filtros reseteados",
+      "title": "Procesamiento Avanzado",
+      "downloadTitle": "Descargar imagen procesada",
+      "resetTitle": "Resetear filtros",
+      "overlayOriginal": "Superponer Original",
+      "originalOpacity": "Opacidad Original",
+      "filters": "Filtros ({{count}}/10)",
+      "add": "Agregar",
+      "noFilters": "No hay filtros aplicados",
+      "processing": "Procesando imagen..."
+    },
+    "cupDrawer": {
+      "opticDiscLabel": "Disco Óptico",
+      "title": "Definir Disco Óptico y Copa",
+      "descStep1": "Paso 1: Marca 4 puntos en los límites del disco óptico (superior, inferior, nasal, temporal)",
+      "descStep2": "Paso 2: Pinta la copa (excavación) dentro del disco óptico",
+      "noDiscDetected": "⚠️ No se detectó disco óptico en esta imagen. Primero debes marcar el disco óptico.",
+      "step1Title": "📍 Paso 1: Marca 4 puntos en los límites del disco",
+      "step1Hint": "Haz clic en los puntos: superior, inferior, nasal y temporal (en cualquier orden)",
+      "pointsCount": "{{count}}/4 puntos",
+      "step2Title": "🎨 Paso 2: Pinta la copa",
+      "step2Hint": "Usa el pincel para pintar la copa (la parte más oscura dentro del disco). Ajusta el tamaño del pincel en el panel lateral.",
+      "legendDisc": "Disco Óptico (detectado)",
+      "legendPoints": "Puntos del disco",
+      "legendCup": "Copa (pintada)",
+      "tools": "Herramientas",
+      "reset": "Reset",
+      "tool": "Herramienta",
+      "brush": "Pincel",
+      "eraser": "Goma",
+      "brushSize": "Tamaño del Pincel",
+      "eraserSize": "Tamaño de la Goma",
+      "brightness": "Brillo",
+      "contrast": "Contraste",
+      "clahe": "CLAHE (realce adaptativo)",
+      "greenChannel": "Canal Verde",
+      "grayscale": "Escala de Grises",
+      "sharpening": "Nitidez (Sharpening)",
+      "tipLabel": "Tip:",
+      "tipText": "Activa \"Canal Verde\" o \"CLAHE\" para ver mejor la copa. El procesamiento no afecta la imagen original.",
+      "continueToStep2": "Continuar al Paso 2 →",
+      "backToStep1": "← Volver a Paso 1",
+      "clearPoints": "Limpiar Puntos",
+      "clearCup": "Limpiar Copa",
+      "clearAll": "Limpiar Todo",
+      "cancel": "Cancelar",
+      "save": "Guardar"
+    }
+  },
+  "analysis": {
+    "title": "Análisis de Imagen",
+    "detections": "Detecciones",
+    "segmentations": "Segmentaciones",
+    "findingsFound": "{{count}} hallazgos detectados",
+    "noFindings": "Sin hallazgos",
+    "panel": {
+      "title": "Análisis Avanzado",
+      "noAnalysisAvailable": "Sin análisis disponibles",
+      "hint": "Activa capas de análisis para ver métricas"
+    },
+    "classes": {
+      "optic_disc": "Disco Óptico",
+      "optic_cup": "Copa Óptica",
+      "macula": "Mácula",
+      "fovea": "Fóvea",
+      "exudates": "Exudados",
+      "hemorrhages": "Hemorragias",
+      "microaneurysms": "Microaneurismas",
+      "lesions": "Lesiones"
+    },
+    "tools": {
+      "select": "Seleccionar",
+      "pan": "Desplazar",
+      "delete": "Eliminar",
+      "prevImage": "Imagen anterior",
+      "nextImage": "Siguiente imagen"
+    },
+    "layers": {
+      "original": "Imagen Original"
+    },
+    "view": {
+      "noImages": "No hay imágenes para analizar",
+      "stats": {
+        "totalImages": "Total Imágenes",
+        "totalDetections": "Total Detecciones",
+        "avgPerImage": "Promedio por Imagen",
+        "processedImages": "Imágenes Procesadas"
+      },
+      "viewDetails": "Ver detalles",
+      "detectionsCount": "detecciones",
+      "noDetectionsLabel": "Sin detecciones",
+      "rightEye": "Ojo Derecho",
+      "leftEye": "Ojo Izquierdo",
+      "noImagesForEye": "No hay imágenes para este ojo"
+    },
+    "drClassification": {
+      "title": "Clasificación de Retinopatía Diabética",
+      "notGenerated": "Procesa las imágenes con IA primero para generar la clasificación",
+      "overallSeverity": "Severidad Global",
+      "rightEye": "Ojo Derecho (OD)",
+      "leftEye": "Ojo Izquierdo (OI)",
+      "confidence": "Confianza",
+      "confidenceLevels": {
+        "high": "Alta",
+        "moderate": "Moderada",
+        "low": "Baja",
+        "highShort": "Alta",
+        "moderateShort": "Mod.",
+        "lowShort": "Baja"
+      },
+      "severity": {
+        "no_dr": {
+          "es": "Sin Retinopatía Diabética",
+          "en": "No Diabetic Retinopathy"
+        },
+        "mild_npdr": {
+          "es": "RDNP Leve",
+          "en": "Mild NPDR"
+        },
+        "moderate_npdr": {
+          "es": "RDNP Moderada",
+          "en": "Moderate NPDR"
+        },
+        "severe_npdr": {
+          "es": "RDNP Severa",
+          "en": "Severe NPDR"
+        },
+        "pdr": {
+          "es": "RD Proliferativa",
+          "en": "Proliferative DR"
+        }
+      },
+      "image": "Imagen {{id}}",
+      "warnings": "Advertencias",
+      "imagesAvailable": "{{count}} imágenes disponibles",
+      "imageSelected": "Imagen {{id}} seleccionada ({{total}} disponibles)",
+      "singleImage": "1 imagen",
+      "note": "Nota:",
+      "noteText": "Clasificación basada en protocolos ICDR/ETDRS.",
+      "noteMultipleImages": "Puedes seleccionar qué imagen usar para el análisis haciendo clic en \"imágenes disponibles\".",
+      "noteSingleImage": "Se muestra el análisis de la imagen por cada ojo.",
+      "detailsModal": {
+        "title": "Detalles del Algoritmo - {{eye}}",
+        "titleOD": "Ojo Derecho",
+        "titleOI": "Ojo Izquierdo",
+        "description": "Explicación detallada de cómo se determinó la clasificación",
+        "finalClassification": "Clasificación Final",
+        "lesionsDetected": "Lesiones Detectadas",
+        "lesionTypes": {
+          "microaneurysms": "Microaneurismas",
+          "hemorrhages": "Hemorragias",
+          "hardExudates": "Exudados duros",
+          "softExudates": "Exudados blandos",
+          "neovascularization": "Neovascularización"
+        },
+        "critical": "⚠️ CRÍTICO",
+        "criteriaApplied": "Criterios Aplicados (ICDR/ETDRS)",
+        "quadrantAnalysis": "Análisis por Cuadrantes Aplicado",
+        "quadrantAnalysisDesc": "Se utilizó el sistema de cuadrantes basado en disco óptico y fóvea para aplicar la regla 4-2-1 de severidad NPDR.",
+        "quadrantNames": {
+          "superior-temporal": "Superior Temporal",
+          "inferior-temporal": "Inferior Temporal",
+          "superior-nasal": "Superior Nasal",
+          "inferior-nasal": "Inferior Nasal"
+        },
+        "quadrantAbbreviations": {
+          "ma": "MA",
+          "he": "HE"
+        },
+        "algorithmSummary": "Resumen del Algoritmo",
+        "algorithmSteps": {
+          "step1": "1. Detección de lesiones:",
+          "step1Desc": "El modeloidentifica y cuenta microaneurismas, hemorragias, exudados y neovascularización.",
+          "step2": "2. Análisis de cuadrantes:",
+          "step2Desc": "Si se detectan disco óptico y fóvea, se aplica la regla 4-2-1 por cuadrantes anatómicos.",
+          "step3": "3. Clasificación ICDR:",
+          "step3Desc": "Se determina el nivel de severidad según los criterios internacionales (ICDR/ETDRS).",
+          "disclaimer": "Este es un sistema de asistencia diagnóstica. Se requiere correlación clínica y revisión por especialista."
+        }
+      }
+    }
+  },
+  "reports": {
+    "title": "Informes",
+    "generate": "Generar Informe",
+    "preview": "Vista Preliminar",
+    "finalize": "Finalizar y Cerrar Caso",
+    "evaluatorNotes": "Conclusiones",
+    "evaluatorNotesPlaceholder": "Escriba sus conclusiones iniciales aquí (la IA las refinará e integrará)...",
+    "finalWarning": "Nota: El reporte final bloqueará la estudio y no se podrán añadir o eliminar imágenes ni análisis.",
+    "dialogDescription": "Asegúrese de que todos los hallazgos han sido revisados antes de generar el informe.",
+    "previewDescription": "Genera un borrador para revisión interna. Incluye marca de agua y no bloquea la estudio para futuras ediciones.",
+    "previewButton": "Generar Borrador",
+    "importantNoteTitle": "Importante:",
+    "importantNoteBody": "Los informes generados se guardan localmente en la base de datos local de la aplicación. Puede acceder a ellos desde la pestaña \"Reporte\" de esta estudio en cualquier momento.",
+    "generated": "Informe generado exitosamente",
+    "processingWithAI": "Procesando con IA...",
+    "previewGenerated": "Vista preliminar generada",
+    "dialog": {
+      "withAI": "Con procesamiento IA de conclusión",
+      "previewExists": "Ya existe una vista previa para esta estudio",
+      "previewExistsDescription": "Puede revisar la vista previa en la lista de informes. Elija una opción a continuación:",
+      "regenerateTitle": "Regenerar Preview",
+      "regenerateDescription": "Elimina la vista previa actual y genera una nueva con las notas actualizadas.",
+      "regenerateButton": "Regenerar",
+      "regenerateConfirmTitle": "¿Regenerar vista previa?",
+      "regenerateConfirmDescription": "Se eliminará la vista previa actual y se generará una nueva. ¿Desea continuar?",
+      "finalizeTitle": "Finalizar Informe",
+      "finalizeDescription": "Genera el informe final y bloquea la estudio permanentemente. No podrá realizar más cambios.",
+      "finalizeButton": "Finalizar",
+      "warningTitle": "Advertencia:",
+      "warningBody": "Al finalizar el informe, la estudio quedará bloqueada y no podrá realizar más modificaciones.",
+      "interactionRequired": "Interacción requerida:",
+      "mustInteractFirst": "Debe visualizar, descargar o editar el preview primero"
+    },
+    "status": {
+      "preliminary": "VERSIÓN PRELIMINAR",
+      "final": "INFORME FINAL"
+    },
+    "pdf": {
+      "clinicalInfo": "INFORMACIÓN CLÍNICA",
+      "findingsAndAnalysis": "RESUMEN DE HALLAZGOS Y ANÁLISIS POR CUADRANTES",
+      "comparativeEvolution": "EVOLUCIÓN COMPARATIVA",
+      "finding": "Hallazgo",
+      "quadrant": "Cuadrante",
+      "total": "Total",
+      "noRelevantHistory": "Sin antecedentes relevantes",
+      "model": "Modelo",
+      "findingsLabel": "Hallazgos",
+      "age": "Edad",
+      "background": "Antecedentes",
+      "sessionNote": "Nota Estudio",
+      "noImage": "Sin imagen",
+      "noAdditionalObservations": "Sin observaciones adicionales.",
+      "combinedTitle": "Informe Evolutivo",
+      "footerText": "Generado por DIRD - AI Assistant",
+      "generatedOn": "Generado:"
+    },
+    "list": {
+      "noReports": "No se han generado informes aún",
+      "addFirst": "Utilice el botón \"Generar Informe\" para crear el primer reporte clínico.",
+      "allReportsInfo": "Los informes generados aparecerán aquí para su revisión.",
+      "viewPDF": "Ver PDF",
+      "downloadPDF": "Descargar PDF",
+      "download": "Descargar",
+      "edit": "Editar",
+      "delete": "Eliminar",
+      "finalize": "Finalizar",
+      "finalizing": "Finalizando...",
+      "goToAnalysis": "Ir a Análisis",
+      "sessionPrefix": "Estudio #",
+      "deleteConfirm": "¿Está seguro de que desea eliminar este informe preliminar? Esta acción no se puede deshacer.",
+      "deleteFinalError": "No se pueden eliminar informes finales.",
+      "finalizeConfirm": "¿Está seguro de que desea finalizar este informe? Esta acción convertirá este informe en final y bloqueará la estudio permanentemente.",
+      "finalizeSuccess": "Informe finalizado y descargado correctamente. La estudio ha sido bloqueada.",
+      "editModalTitle": "Editar Conclusiones",
+      "editModalPlaceholder": "Ingrese las conclusiones clínicas y recomendaciones...",
+      "searchPlaceholder": "Buscar en conclusiones...",
+      "showPreliminary": "Mostrar informes preliminares",
+      "foundCount": "{{count}} informe encontrado",
+      "categories": {
+        "all": "Todas las categorías",
+        "single": "Estudios únicas",
+        "combined": "Estudios combinadas"
+      },
+      "deleteSuccess": "Informe eliminado exitosamente",
+      "editModalInfo": "Por defecto se muestra la versión mejorada por IA. Puedes alternar con tu borrador original.",
+      "aiVersion": "🤖 Versión Actual (IA)",
+      "restoreDraft": "📝 Restaurar mi Borrador",
+      "updateError": "Error al actualizar las conclusiones",
+      "updateSuccess": "Conclusión actualizada exitosamente",
+      "mustInteractFirst": "Debe visualizar, descargar o editar el preview primero"
+    },
+    "generatedOffline": "sin conexión",
+    "previewDeleted": "Vista previa eliminada",
+    "previewDeleteError": "Error al eliminar la vista previa",
+    "generateWithoutAI": "Generar sin asistente IA",
+    "generateWithoutAIDescription": "Usa solo la clasificación local de la guía activa, sin pulir el texto con el LLM local."
+  },
+  "models": {
+    "detection": "Detección",
+    "segmentation": "Segmentación",
+    "classes": {
+      "microaneurysm": "Microaneurisma",
+      "hard_exudate": "Exudado Duro",
+      "soft_exudate": "Exudado Blando",
+      "hemorrhage": "Hemorragia",
+      "neovascularization": "Neovascularización"
+    }
+  },
+  "export": {
+    "patient": "Exportar Paciente",
+    "session": "Exportar Estudio",
+    "all": "Exportar Todo",
+    "exporting": "Exportando...",
+    "dragAndDrop": "O arrastra y suelta aquí",
+    "errorPatient": "Error al exportar el paciente",
+    "errorData": "Error al exportar los datos",
+    "patientSuccess": "Paciente exportado exitosamente",
+    "sessionSuccess": "Estudio exportado exitosamente",
+    "fullSuccess": "Todos los datos exportados exitosamente"
+  },
+  "import": {
+    "patientTitle": "Importar paciente(s)",
+    "sessionTitle": "Importar estudio(s)",
+    "patientDescription": "Importa un archivo .dird para cargar un paciente o pacientes",
+    "sessionDescription": "Importa un archivo .dird para cargar un estudio o estudios",
+    "selectFile": "Haz clic para seleccionar un archivo .dird",
+    "importing": "Importando datos...",
+    "waitMessage": "Esto puede tardar unos momentos",
+    "successTitle": "Importación Exitosa",
+    "patientLabel": "Paciente: ",
+    "patientsImported": "Pacientes importados: ",
+    "sessionsImported": "Estudios importados: ",
+    "reportsImported": "Informes importados: ",
+    "imagesImported": "Imágenes importadas: ",
+    "detectionsImported": "Detecciones importadas: ",
+    "segmentationsImported": "Segmentaciones importadas: ",
+    "measurementsImported": "Mediciones importadas: ",
+    "errorTitle": "Error de Importación",
+    "processError": "Error al procesar el archivo",
+    "invalidFile": "Archivo inválido. Por favor seleccione un archivo de paciente(s) .dird válido."
+  },
+  "languages": {
+    "es": "Español",
+    "en": "English",
+    "auto": "Automático (Sistema)"
+  },
+  "admin": {
+    "tabs": {
+      "ai": "IA / Groq"
+    },
+    "login": {
+      "submit": "Iniciar Estudio",
+      "success": "Inicio de estudio exitoso"
+    },
+    "changePassword": {
+      "description": "Actualiza tu contraseña de administrador",
+      "success": "Contraseña actualizada correctamente"
+    },
+    "beaconMonitor": {
+      "success": "Lista actualizada"
+    },
+    "installations": {
+      "columns": {
+        "tokens": "Tokens",
+        "status": "Estado",
+        "actions": "Acciones"
+      },
+      "success": "Lista actualizada",
+      "dialog": {
+        "range": "Rango permitido: 0 - 9999"
+      }
+    },
+    "messageBroadcast": {
+      "type": "Tipo",
+      "variants": {
+        "info": "Información",
+        "success": "Éxito",
+        "warning": "Advertencia",
+        "error": "Error"
+      },
+      "duration": {
+        "1": "1 hora",
+        "6": "6 horas"
+      },
+      "success": "Mensaje enviado a todos los usuarios"
+    }
+  },
+  "settings": {
+    "title": "Configuración",
+    "description": "Personaliza la aplicación según tus necesidades",
+    "tabs": {
+      "appearance": "Apariencia",
+      "models": "Modelos",
+      "processing": "Procesamiento",
+      "about": "Acerca de",
+      "report": "Reporte",
+      "analysis": "Análisis Avanzado",
+      "guidelines": "Guías Clínicas",
+      "metrics": "Métricas",
+      "debug": "Depuración",
+      "security": "Seguridad"
+    },
+    "guidelines": {
+      "copy": "Copia",
+      "title": "Selección de Guía Clínica",
+      "description": "Selecciona la guía clínica para clasificar la retinopatía diabética según diferentes estándares internacionales",
+      "loading": "Cargando guías clínicas...",
+      "active": "Activa",
+      "official": "Oficial",
+      "severityPreview": "Vista Previa de Niveles de Severidad",
+      "confirmDialog": {
+        "title": "¿Cambiar Guía Clínica?",
+        "description": "Cambiar la guía clínica activa afectará todas las clasificaciones futuras. Las clasificaciones existentes mantendrán su guía original.",
+        "warning": "Nota: Si tienes estudios en progreso, considera completarlas antes de cambiar la guía.",
+        "cancel": "Cancelar",
+        "confirm": "Confirmar Cambio"
+      },
+      "errors": {
+        "loadFailed": "Error al cargar las guías clínicas",
+        "applyFailed": "Error al aplicar la guía clínica"
+      },
+      "editor": {
+        "title": "Editor de Guías",
+        "subtitle": "Crea y modifica guías clínicas personalizadas",
+        "importJson": "Importar JSON",
+        "exportJson": "Exportar JSON",
+        "save": "Guardar",
+        "cancel": "Cancelar",
+        "tabs": {
+          "metadata": "Metadatos",
+          "severity": "Niveles de Severidad",
+          "rules": "Reglas de Clasificación",
+          "rule421": "Regla 4-2-1",
+          "treatment": "Protocolos de Tratamiento",
+          "emcs": "Criterios EMCS"
+        },
+        "metadata": {
+          "name": "Nombre",
+          "namePlaceholder": "MINSAL Chile 2017",
+          "id": "ID de Guía (autogenerado)",
+          "fullName": "Nombre Completo",
+          "fullNamePlaceholder": "Guía Clínica de Retinopatía Diabética...",
+          "version": "Versión",
+          "country": "País",
+          "language": "Idioma",
+          "status": "Estado",
+          "datePublished": "Fecha de Publicación",
+          "organization": "Organización",
+          "description": "Descripción",
+          "descriptionPlaceholder": "Breve descripción de esta guía...",
+          "languageOptions": {
+            "es": "Español",
+            "en": "Inglés"
+          },
+          "statusOptions": {
+            "draft": "Borrador",
+            "official": "Oficial",
+            "custom": "Personalizada",
+            "deprecated": "Obsoleta"
+          }
+        },
+        "severity": {
+          "description": "Define los niveles de severidad para la clasificación de RD (en orden de menor a mayor severidad)",
+          "addLevel": "Agregar Nivel",
+          "noLevels": "No hay niveles de severidad definidos. Haz clic en \"Agregar Nivel\" para crear uno.",
+          "level": {
+            "order": "Orden",
+            "id": "ID",
+            "name": "Nombre (ES)",
+            "color": "Color",
+            "description": "Descripción (ES)",
+            "unnamed": "Nivel sin nombre",
+            "namePlaceholder": "Sin RD Aparente",
+            "descriptionPlaceholder": "Descripción de este nivel de severidad..."
+          }
+        },
+        "rules": {
+          "description": "Define reglas de clasificación basadas en conteo de lesiones y otros criterios",
+          "addRule": "Agregar Regla",
+          "noRules": "No hay reglas definidas. Haz clic en \"Agregar Regla\" para crear una.",
+          "rule": "Regla",
+          "priority": "Prioridad",
+          "severityLevel": "Nivel de Severidad",
+          "logic": "Lógica",
+          "conditions": "Condiciones",
+          "addCondition": "Agregar Condición",
+          "logicOptions": {
+            "and": "Y (todas deben coincidir)",
+            "or": "O (cualquiera puede coincidir)"
+          }
+        },
+        "rule421": {
+          "enable": "Habilitar Regla 4-2-1",
+          "name": "Nombre de la Regla",
+          "description": "Descripción",
+          "criteria": "Criterios",
+          "addCriterion": "Agregar Criterio",
+          "criterion": "Criterio",
+          "severityMapping": "Mapeo de Severidad",
+          "fields": {
+            "name": "Nombre",
+            "field": "Campo",
+            "minQuadrants": "Mín. Cuadrantes",
+            "minPerQuadrant": "Mín. por Cuadrante",
+            "minDiscAreas": "Mín. Áreas de Disco",
+            "description": "Descripción",
+            "descriptionPlaceholder": "Descripción de este criterio..."
+          },
+          "mapping": {
+            "0met": "0 criterios cumplidos →",
+            "1met": "1 criterio cumplido →",
+            "2met": "2 o más criterios cumplidos →",
+            "none": "Ninguno"
+          },
+          "descriptionPlaceholder": "Criterios de severidad RDNP según ETDRS..."
+        },
+        "treatment": {
+          "description": "Define protocolos de tratamiento y recomendaciones de seguimiento para cada nivel de severidad",
+          "addProtocol": "Agregar Protocolo",
+          "noProtocols": "No hay protocolos definidos. Haz clic en \"Agregar Protocolo\" para crear uno.",
+          "protocol": "Protocolo",
+          "severityLevel": "Nivel de Severidad",
+          "urgency": "Urgencia",
+          "followupDays": "Días de Seguimiento",
+          "actions": "Acciones",
+          "addAction": "Agregar Acción",
+          "rationale": "Justificación",
+          "urgencyOptions": {
+            "routine": "Rutina",
+            "accelerated": "Acelerada",
+            "urgent": "Urgente"
+          },
+          "actionPlaceholder": "Acción de tratamiento...",
+          "rationalePlaceholder": "Justificación clínica de este protocolo..."
+        },
+        "emcs": {
+          "enable": "Habilitar Criterios EMCS (Edema Macular Clínicamente Significativo)",
+          "name": "Nombre",
+          "distance": "Distancia Geométrica desde Fovea (μm)",
+          "minDiscAreas": "Mínimo Áreas de Disco",
+          "applyGeometric": "Aplicar regla geométrica para detección",
+          "description": "Descripción"
+        },
+        "messages": {
+          "importSuccess": "Guía importada exitosamente",
+          "importError": "Archivo JSON inválido",
+          "exportSuccess": "Guía exportada exitosamente",
+          "saveSuccess": "Guía guardada exitosamente",
+          "validationError": "Errores de Validación"
+        },
+        "validation": {
+          "idRequired": "Se requiere ID de guía",
+          "nameRequired": "Se requiere nombre de guía",
+          "versionRequired": "Se requiere versión",
+          "countryRequired": "Se requiere país",
+          "severityRequired": "Se requiere al menos un nivel de severidad",
+          "levelIdRequired": "Nivel {{index}}: Se requiere ID",
+          "levelNameRequired": "Nivel {{index}}: Se requiere nombre",
+          "levelColorRequired": "Nivel {{index}}: Se requiere color",
+          "duplicateIds": "IDs de nivel de severidad duplicados: {{ids}}",
+          "ruleSeverityRequired": "Regla {{index}}: Se requiere severidad",
+          "ruleConditionRequired": "Regla {{index}}: Se requiere al menos una condición"
+        },
+        "summary": {
+          "levels": "{{count}} niveles",
+          "rules": "{{count}} reglas",
+          "protocols": "{{count}} protocolos"
+        }
+      },
+      "deleteImported": "Eliminar guía importada"
+    },
+    "classes": {
+      "title": "Gestión de Clases del Modelo",
+      "description": "Personaliza los nombres y colores de las clases detectadas.",
+      "rainbowMode": "Modo Arcoiris",
+      "rainbowModeDesc": "Si está activado, cada clase tendrá su propio color. Si no, se usará el color principal.",
+      "list": "Lista de Clases",
+      "idLabel": "ID (JSON)",
+      "nameLabel": "Nombre (Traducción)",
+      "colorLabel": "Color",
+      "placeholder": "Nombre personalizado...",
+      "manage": "Gestionar Clases"
+    },
+    "report": {
+      "general": {
+        "title": "Configuración General",
+        "reportTitle": "Título del Reporte",
+        "reportSubtitle": "Subtítulo del Reporte"
+      },
+      "logo": {
+        "title": "Configuración de Logo",
+        "useSystem": "Usar Logo del Sistema",
+        "uploadCustom": "Subir Logo Personalizado"
+      },
+      "colors": {
+        "title": "Colores del Reporte",
+        "primary": "Color Primario",
+        "secondary": "Color Secundario (Acento)",
+        "text": "Color de Texto"
+      },
+      "sections": {
+        "title": "Secciones Visibles",
+        "patientInfo": "Información del Paciente",
+        "summary": "Resumen de Hallazgos",
+        "gallery": "Galería de Imágenes",
+        "evaluatorNotes": "Conclusiones"
+      },
+      "ai": {
+        "title": "Configuración de Conclusiones IA",
+        "generalConclusion": "Generar Conclusión General",
+        "perEyeAnalysis": "Análisis Detallado por Ojo",
+        "guidelineAlignment": "Alineación con Guía Clínica",
+        "treatmentRecommendations": "Recomendaciones de Tratamiento",
+        "riskFactors": "Análisis de Factores de Riesgo",
+        "customPrompt": "Instrucciones Personalizadas (Max 500 cars)",
+        "customPromptPlaceholder": "Ej: 'Usar lenguaje muy simple', 'Enfocar en edema macular', etc."
+      },
+      "patientDetails": {
+        "title": "Detalles del Paciente",
+        "name": "Nombre",
+        "id": "ID Paciente",
+        "age": "Edad",
+        "diabetes": "Diabetes",
+        "hta": "Hipertensión (HTA)",
+        "dlp": "Dislipidemia (DLP)",
+        "medications": "Medicamentos",
+        "otherConditions": "Otras Condiciones",
+        "sessionDate": "Fecha Estudio",
+        "sessionNotes": "Notas de Estudio"
+      },
+      "gallery": {
+        "title": "Opciones de Galería",
+        "includeAnnotated": "Incluir Imágenes con Anotaciones (IA)",
+        "includeOriginal": "Incluir Imágenes Originales",
+        "warning": "Debes seleccionar al menos una opción de galería."
+      },
+      "signature": {
+        "title": "Firma",
+        "text": "Texto de la Firma"
+      }
+    },
+    "appearance": {
+      "title": "Configuración de Apariencia",
+      "primaryColor": "Color Principal",
+      "logo": "Logo (URL o ruta)",
+      "logoPreview": "Vista previa del logo",
+      "uploadNewLogo": "Subir nuevo logo",
+      "theme": "Tema",
+      "themes": {
+        "light": "Claro",
+        "dark": "Oscuro",
+        "auto": "Automático"
+      },
+      "language": "Idioma"
+    },
+    "models": {
+      "source": {
+        "title": "Origen de Modelos",
+        "local": "Modelos Locales DIRD",
+        "localDescription": "Usa modelos ONNX almacenados localmente. Garantiza privacidad total ya que todo el procesamiento ocurre en tu dispositivo.",
+        "api": "API Externa",
+        "apiDescription": "Conecta con una API personalizada para inferencia. Útil para modelos privados, de pago o propios alojados en servidores."
+      },
+      "local": {
+        "title": "Configuración de Modelos Locales",
+        "detection": "Modelo de Detección",
+        "segmentation": "Modelo de Segmentación"
+      },
+      "api": {
+        "title": "Configuración de API",
+        "endpoint": "URL del Endpoint",
+        "key": "API Key",
+        "modelName": "Nombre del Modelo",
+        "timeout": "Tiempo de Espera",
+        "headers": "Headers Personalizados (JSON)",
+        "test": "Probar Conexión",
+        "testing": "Probando...",
+        "unknownError": "Error desconocido"
+      },
+      "title": "Configuración de Modelos",
+      "description": "Gestiona los modelos de IA descargados desde GitHub o locales",
+      "available": "Modelos Disponibles",
+      "repository": "Repositorio",
+      "latest": "Más reciente",
+      "inUse": "En uso",
+      "downloaded": "Descargado",
+      "download": "Descargar",
+      "currentStatus": "Estado Actual",
+      "notLoaded": "No cargado",
+      "notAvailable": "No disponible",
+      "cache": "Cache de Modelos",
+      "totalSize": "Tamaño total",
+      "clearCache": "Limpiar Cache",
+      "searching": "Buscando modelos disponibles...",
+      "notFound": "No se encontraron modelos en el repositorio",
+      "info": "Información",
+      "info1": "• Los modelos se descargan desde GitHub y se almacenan en cache para uso offline",
+      "info2": "• Cada rama del repositorio contiene una versión diferente del modelo",
+      "info3": "• Si la descarga falla, se usará el modelo local como fallback",
+      "info4": "• El cache persiste entre estudios y se puede limpiar en cualquier momento",
+      "detectionModels": "Modelos de Detección",
+      "segmentationModels": "Modelos de Segmentación",
+      "downloadSuccess": "Modelo de detección descargado y cargado exitosamente",
+      "downloadError": "Error al descargar el modelo",
+      "clearCacheConfirm": "¿Estás seguro de que quieres limpiar el cache de modelos?",
+      "clearCacheSuccess": "Cache limpiado exitosamente",
+      "clearCacheError": "Error al limpiar el cache",
+      "sensitivity": "Sensibilidad",
+      "sensitivityHelp": "Ajusta el umbral de confianza para las detecciones.",
+      "metadataNotLoaded": "Metadatos no cargados",
+      "metadataNotLoadedDesc": "No se pudieron cargar los metadatos del modelo",
+      "viewInfo": "Ver información",
+      "modelInfo": "Información del Modelo",
+      "modelInfoDescription": "Detalles técnicos, métricas de rendimiento y análisis del modelo de detección",
+      "generalInfo": "Información General",
+      "globalMetrics": "Métricas Globales",
+      "globalMetricsPrecision": "Precisión Global",
+      "globalMetricsRecall": "Recall Global",
+      "detectableClasses": "Clases Detectables",
+      "criticalFindings": "Hallazgos Críticos",
+      "recommendations": "Recomendaciones y Próximos Pasos",
+      "type": "Tipo:",
+      "dateTrained": "Fecha de Entrenamiento:",
+      "inputSize": "Tamaño de Entrada:",
+      "modelStatus": "Estado del Modelo:",
+      "statusTexts": {
+        "excellent": "Excelente",
+        "good": "Bueno",
+        "improvement": "Requiere Mejora",
+        "critical": "Crítico"
+      },
+      "numAnnotations": "Anotaciones",
+      "numImages": "Imágenes",
+      "trainingInfo": "Información de Entrenamiento"
+    },
+    "processing": {
+      "title": "Configuración de Procesamiento",
+      "opticDiscRefinement": "Segmentación de Disco Óptico",
+      "opticDiscRefinementDescription": "Genera máscara circular del disco óptico dentro del área detectada por el Modelo",
+      "cpuVendor": "Fabricante del CPU",
+      "cpuVendorDescription": "Configura el fabricante del CPU para optimizar el rendimiento de ONNX Runtime. En modo manual verás warnings del sistema en la consola (esto es normal).",
+      "cpuVendorWarning": "⚠️ Solo modifica si sabes lo que haces. El modo automático es recomendado para la mayoría de usuarios.",
+      "cpuVendorOptions": {
+        "auto": "Automático (Recomendado)",
+        "intel": "Intel",
+        "amd": "AMD",
+        "arm": "ARM"
+      },
+      "maxImageSize": "Tamaño Máximo de Imagen",
+      "maxImageSizeWithUnit": "Tamaño Máximo de Imagen ({{size}} MB)",
+      "compressionQuality": "Calidad de Compresión",
+      "compressionQualityWithUnit": "Calidad de Compresión ({{quality}}%)",
+      "batchSize": "Tamaño de Lote",
+      "batchSizeWithUnit": "Tamaño de Lote ({{size}})"
+    },
+    "about": {
+      "title": "Acerca de DIRD+",
+      "description": "Plataforma de análisis de imágenes oftalmológicas con IA edge-computing. Todos los datos permanecen en tu dispositivo.",
+      "version": "Versión",
+      "reset": "Restablecer Configuración",
+      "loading": "Cargando...",
+      "check": "Verificar",
+      "updateAvailable": "Nueva versión disponible. Se recomienda actualizar para obtener las últimas características y correcciones.",
+      "updateNow": "Actualizar Ahora",
+      "noUpdates": "Tienes la versión más reciente",
+      "checkError": "Error al verificar actualizaciones"
+    },
+    "metrics": {
+      "tabTitle": "Métricas de rendimiento y uso",
+      "usageMetrics": "Métricas de uso",
+      "processedStudies": "Estudios procesados",
+      "processedImages": "Imágenes procesadas",
+      "totalInferenceTime": "Tiempo total de inferencia",
+      "totalSessionTime": "Tiempo total de sesiones",
+      "firstUse": "Primer uso",
+      "lastUse": "Último uso",
+      "perImageMetrics": "Métricas por imagen (N={{count}})",
+      "noInferences": "Sin inferencias aún.",
+      "perSessionMetrics": "Métricas por sesión (N={{count}})",
+      "noSessions": "Sin sesiones procesadas.",
+      "meanSessionDuration": "Duración media sesión",
+      "meanPerImageSession": "Media por imagen (E2E sesión)",
+      "overheadVsInference": "Overhead vs inferencia pura",
+      "copied": "Copiado",
+      "exportJson": "Exportar JSON",
+      "clearHistory": "Limpiar historial",
+      "resetAll": "Reset total (incluye contadores)",
+      "table": {
+        "phase": "Fase",
+        "meanMs": "Media ms",
+        "median": "Mediana",
+        "min": "Min",
+        "max": "Max",
+        "std": "Std",
+        "pctE2E": "% E2E",
+        "totalE2E": "Total E2E"
+      },
+      "sessionTable": {
+        "date": "Fecha",
+        "images": "Imágenes",
+        "modelLoad": "Carga modelo",
+        "sessionTotal": "Total sesión",
+        "meanPerImage": "Media/img"
+      }
+    },
+    "modelInfo": {
+      "dataset": "Dataset",
+      "epochs": "Epochs",
+      "framework": "Framework",
+      "measuredPerformance": "Rendimiento medido",
+      "noMeasuredInferences": "Aún no hay inferencias medidas. Procesa una imagen para ver las métricas.",
+      "measuredPerformanceCount_one": "Rendimiento medido ({{count}} inferencia)",
+      "measuredPerformanceCount_other": "Rendimiento medido ({{count}} inferencias)",
+      "lastInference": "Última inferencia",
+      "lastFields": {
+        "model": "Modelo:",
+        "image": "Imagen:",
+        "detections": "Detecciones:",
+        "preprocess": "Preprocess:",
+        "onnxInference": "ONNX Inference:",
+        "postProcessing": "Post-processing:",
+        "nms": "NMS:",
+        "spatialAnalysis": "Spatial analysis:",
+        "clinicalClassification": "Clinical classification:",
+        "endToEnd": "End-to-end:"
+      },
+      "aggregatedE2E": "Agregados E2E (N={{count}}) · media total {{mean}} ms",
+      "table": {
+        "mean": "Media"
+      },
+      "copyJson": "Copiar JSON"
+    },
+    "reportCfg": {
+      "customLogoAlt": "Logo personalizado",
+      "imagesPerRow": "Imágenes por fila",
+      "imagesPerRowOptions": {
+        "one": "1 Imagen (Grande)",
+        "two": "2 Imágenes (Cuadrícula)"
+      },
+      "showQuadrantLines": "Mostrar Líneas de Cuadrantes",
+      "showMeasurements": "Mostrar Mediciones",
+      "showOpticDiscArea": "Mostrar Área del Disco Óptico"
+    },
+    "general": {
+      "cleanup": {
+        "successTitle": "Se eliminaron {{count}} anotación(es) inválida(s)",
+        "successDesc": "Las anotaciones con valores NaN o inválidos han sido limpiadas de la base de datos.",
+        "noneTitle": "No se encontraron anotaciones inválidas",
+        "noneDesc": "La base de datos está limpia.",
+        "errorTitle": "Error al limpiar anotaciones",
+        "unknownError": "Ocurrió un error desconocido."
+      }
+    },
+    "analysis": {
+      "title": "Análisis Avanzado",
+      "description": "Configura qué análisis automáticos deseas activar en el canvas.",
+      "circinatePattern": "Patrones Circinados",
+      "circinatePatternDesc": "Detecta anillos circinados de exudados duros alrededor de la fóvea",
+      "hemorrhages": "Hemorragias Retinianas",
+      "hemorrhagesDesc": "Analiza hemorragias y su distribución por cuadrantes",
+      "microaneurysms": "Microaneurismas",
+      "microaneurysmsDesc": "Detecta y cuenta microaneurismas con análisis de distribución",
+      "opticDiscCupping": "Excavación del Disco Óptico",
+      "opticDiscCuppingDesc": "Calcula la relación copa/disco (C/D ratio) y distancias del anillo neuroretiniano"
+    },
+    "debug": {
+      "title": "Depuración",
+      "description": "Controla qué categorías de logs deseas ver en la consola del navegador durante el desarrollo.",
+      "unavailable": "La configuración de depuración no está disponible. Por favor, resetea la configuración desde la pestaña \"Acerca de\".",
+      "enable": "Activar Depuración",
+      "enableDesc": "Interruptor maestro. Si está desactivado, no se mostrará ningún log.",
+      "logCategories": "Categorías de Logs",
+      "categories": {
+        "api": "API & Red",
+        "apiDesc": "Llamadas a APIs, peticiones de red, respuestas HTTP",
+        "ai": "Inteligencia Artificial",
+        "aiDesc": "Inferencia de modelos, carga de modelos ONNX, predicciones",
+        "imageProcessing": "Procesamiento de Imágenes",
+        "imageProcessingDesc": "Análisis de imágenes, transformaciones, detecciones",
+        "clinicalGuidelines": "Guías Clínicas",
+        "clinicalGuidelinesDesc": "Procesamiento de guías clínicas, aplicación de criterios",
+        "database": "Base de Datos",
+        "databaseDesc": "Operaciones de IndexedDB, queries, transacciones",
+        "drClassification": "Clasificación DR",
+        "drClassificationDesc": "Lógica de clasificación de retinopatía diabética",
+        "canvas": "Canvas",
+        "canvasDesc": "Operaciones de canvas, anotaciones, dibujo",
+        "general": "General",
+        "generalDesc": "Logs generales de la aplicación"
+      },
+      "note": {
+        "title": "Nota sobre Depuración",
+        "item1": "Los logs solo aparecen en la consola del navegador (F12)",
+        "item2": "Los errores siempre se muestran en modo desarrollo",
+        "item3": "En producción, todos los logs están desactivados por defecto",
+        "item4": "Esta configuración es útil para diagnosticar problemas"
+      },
+      "maintenance": {
+        "title": "Herramientas de Mantenimiento",
+        "cleanupTitle": "Limpiar Anotaciones Inválidas",
+        "cleanupDesc": "Elimina anotaciones con valores NaN, Infinity o inválidos que pueden causar advertencias en el canvas.",
+        "cleaning": "Limpiando...",
+        "runCleanup": "Ejecutar Limpieza"
+      }
+    },
+    "security": {
+      "title": "Seguridad y cifrado",
+      "changeLoginTitle": "Cambiar contraseña de la aplicación",
+      "changeLoginDesc": "Re-cifra la base local con la nueva clave. La operación es atómica.",
+      "newPassword": "Nueva contraseña",
+      "repeat": "Repetir",
+      "noMatch": "No coinciden.",
+      "changeWarning": "La contraseña anterior dejará de funcionar inmediatamente. No hay recuperación.",
+      "updating": "Actualizando...",
+      "changePassword": "Cambiar contraseña",
+      "exportPwTitle": "Contraseña de exportación",
+      "exportPwDescPre": "Solo se guarda en memoria durante esta sesión. Se usa para cifrar archivos",
+      "exportPwDescPost": "exportados.",
+      "replacePassword": "Reemplazar contraseña",
+      "setPassword": "Establecer contraseña",
+      "update": "Actualizar",
+      "set": "Establecer",
+      "lockTitle": "Bloquear sesión",
+      "lockDesc": "Cierra la base cifrada y vuelve a la pantalla de login.",
+      "lockNow": "Bloquear ahora",
+      "loginPwUpdated": "Contraseña de aplicación actualizada.",
+      "errorPrefix": "Error: ",
+      "minChars": "Mínimo {{count}} caracteres.",
+      "exportPwUpdated": "Contraseña de exportación actualizada para esta sesión."
+    },
+    "customModels": {
+      "title": "Modelos externos",
+      "descriptionPre": "DIRD+ es model-agnostic. Carga modelos ONNX de terceros que cumplan con la",
+      "specLink": "especificación model-interface v2.0",
+      "installNew": "Instalar modelo nuevo",
+      "onnxFile": "Archivo .onnx",
+      "modelCardFile": "Model card .json",
+      "installing": "Validando e instalando…",
+      "validateInstall": "Validar e instalar",
+      "installedOk": "Instalado correctamente",
+      "sanityCheck": "Sanity check: {{ms}} ms · output shape {{shape}}",
+      "validationFailed": "Validación falló",
+      "installedTitle": "Modelos instalados ({{n}})",
+      "loading": "Cargando…",
+      "noModels": "No hay modelos personalizados instalados.",
+      "active": "Activo",
+      "modelMeta": "{{size}} MB · instalado {{date}}",
+      "activate": "Activar",
+      "listError": "No se pudo listar modelos: ",
+      "selectBothFiles": "Selecciona ambos archivos (.onnx + .json).",
+      "installed": "Modelo \"{{name}}\" instalado.",
+      "validationFailedToast": "Validación falló — revisar detalles.",
+      "errorPrefix": "Error: ",
+      "activated": "Modelo activado y cargado para inferencia.",
+      "activateError": "No se pudo activar: ",
+      "confirmDelete": "¿Eliminar el modelo \"{{name}}\"?",
+      "deleted": "Modelo eliminado.",
+      "deleteError": "No se pudo eliminar: "
+    },
+    "localLlm": {
+      "title": "Asistente IA local (opcional)",
+      "description": "Descarga un modelo de lenguaje pequeño que corre 100% local (llama.cpp). Útil para resumir conclusiones, traducir términos o sugerir frases sin enviar datos a la nube. El modelo se baja una vez y queda guardado offline.",
+      "activeModel": "Modelo activo: {{name}}",
+      "testPlaceholder": "Escribe un prompt de prueba…",
+      "defaultTestPrompt": "Explica en una frase qué es la retinopatía diabética.",
+      "generating": "Generando…",
+      "test": "Probar",
+      "unloadFromMemory": "Descargar de memoria",
+      "catalog": "Catálogo ({{n}})",
+      "loadingCatalog": "Cargando…",
+      "active": "Activo",
+      "activate": "Activar",
+      "download": "Descargar",
+      "disclaimer": "Los modelos se descargan desde HuggingFace. No incluyen pesos en el bundle de DIRD+. Una vez descargados, la inferencia es 100% local — los datos clínicos nunca salen del dispositivo. La calidad del modelo depende del tamaño elegido; los más pequeños (<1 GB) pueden cometer errores en terminología clínica especializada.",
+      "confirmUninstall": "¿Eliminar el modelo \"{{name}}\" del disco?",
+      "toast": {
+        "unavailable": "LLM local no disponible: {{error}}",
+        "downloaded": "Modelo \"{{name}}\" descargado.",
+        "downloadError": "Error al descargar: {{error}}",
+        "loaded": "Modelo cargado.",
+        "loadError": "Error al cargar: {{error}}",
+        "unloaded": "Modelo descargado de memoria.",
+        "deleted": "Modelo eliminado.",
+        "deleteError": "Error al eliminar: {{error}}",
+        "error": "Error: {{error}}"
+      }
+    }
+  },
+  "processing": {
+    "title": "Procesando Imágenes",
+    "description": "Ejecutando análisis de IA en las imágenes de la estudio",
+    "complete": "Procesamiento completado con éxito",
+    "inProgress": "Procesando {{current}}/{{total}}...",
+    "start": "Procesar con IA",
+    "imagesProcessed": "Imágenes procesadas",
+    "pleaseWait": "Por favor espera, este proceso puede tardar unos momentos..."
+  },
+  "loading": {
+    "title": "Preparando DIRD",
+    "subtitle": "Cargando recursos necesarios",
+    "info": "Cargando los componentes necesarios para el funcionamiento de la aplicación.",
+    "steps": {
+      "init": "Inicializando",
+      "tokens": "Verificando tokens",
+      "model": "Cargando modelo de IA",
+      "opencv": "Inicializando OpenCV",
+      "done": "Completado"
+    }
+  },
+  "demo": {
+    "loading": {
+      "title": "Preparando DIRD",
+      "subtitle": "Cargando paciente demo y recursos",
+      "firstTimeInfo": "La primera carga puede tardar unos segundos mientras se preparan los modelos de IA y las imágenes demo.",
+      "imagesProgress": "Procesando imagen {{current}} de {{total}}",
+      "steps": {
+        "init": "Inicializando",
+        "patient": "Creando paciente demo",
+        "model": "Cargando modelo de IA",
+        "modelLoaded": "Modelo de IA cargado",
+        "images": "Procesando imágenes",
+        "report": "Generando informe",
+        "done": "Completado"
+      }
+    }
+  },
+  "clinical": {
+    "warnings": {
+      "quadrantUnavailable": "Análisis de cuadrantes no disponible - precisión de regla 4-2-1 reducida",
+      "rule421NotEvaluated": "Regla 4-2-1 no pudo ser completamente evaluada",
+      "rightEyeUnavailable": "Datos del ojo derecho (OD) no disponibles",
+      "leftEyeUnavailable": "Datos del ojo izquierdo (OI) no disponibles",
+      "aiDisclaimer": "Esta es una sugerencia asistida por IA, no un diagnóstico definitivo",
+      "clinicalCorrelation": "Se requiere correlación clínica y revisión por especialista",
+      "quadrantApproximated": "El análisis por cuadrantes (regla 4-2-1) es aproximado"
+    },
+    "rule421": {
+      "quadrantsMet": "{{name}}: {{met}}/{{required}} cuadrantes cumplidos"
+    },
+    "recommendations": {
+      "pdr": {
+        "urgentReferral": "URGENTE: Derivación inmediata a especialista en retina requerida",
+        "considerPRP": "Considerar fotocoagulación panretiniana (PRP)",
+        "followup": "Control en 2-4 semanas"
+      },
+      "severe_npdr": {
+        "urgentReferral": "Derivación urgente a especialista en retina",
+        "followup": "Control en 1-2 meses",
+        "considerTherapy": "Considerar PRP o terapia anti-VEGF"
+      },
+      "moderate_npdr": {
+        "refer": "Derivar a oftalmólogo",
+        "followup": "Control cada 3-6 meses",
+        "optimizeGlycemic": "Optimizar control glicémico"
+      },
+      "mild_npdr": {
+        "annualExam": "Examen anual con dilatación pupilar",
+        "monitorGlucose": "Monitorear niveles de glucosa",
+        "continueDM": "Continuar manejo de diabetes"
+      },
+      "no_dr": {
+        "annualScreening": "Tamizaje anual recomendado",
+        "maintainGlycemic": "Mantener buen control glicémico"
+      },
+      "riskFactors": {
+        "hypertension": "Control de presión arterial es esencial",
+        "dyslipidemia": "Manejo de lípidos recomendado",
+        "longDuration": "Larga duración de diabetes aumenta riesgo de progresión",
+        "type1": "Diabetes tipo 1 requiere monitoreo vigilante"
+      }
+    },
+    "format": {
+      "title": "CLASIFICACIÓN DE RETINOPATÍA DIABÉTICA",
+      "protocol": "Protocolo",
+      "overallSeverity": "Severidad Global",
+      "rightEye": "Ojo Derecho (OD)",
+      "leftEye": "Ojo Izquierdo (OI)",
+      "confidence": "Confianza",
+      "criteria": "Criterios",
+      "recommendations": "Recomendaciones",
+      "warnings": "Advertencias"
+    }
+  },
+  "filters": {
+    "controls": {
+      "brightness": "Brillo",
+      "contrast": "Contraste",
+      "saturation": "Saturación",
+      "gamma": "Gamma",
+      "gammaHint": ">1 aclara la periferia oscura; <1 oscurece.",
+      "noParams": "Este filtro no tiene parámetros configurables",
+      "channel": "Canal",
+      "channelLuminance": "Luminancia (preserva color)",
+      "channelGreen": "Verde (vasos/lesiones)",
+      "channelRed": "Rojo",
+      "channelBlue": "Azul",
+      "clipLimit": "Clip Limit",
+      "tileGridSize": "Tile Grid Size",
+      "type": "Tipo",
+      "value": "Valor",
+      "thresholdBinary": "Binary",
+      "thresholdBinaryInv": "Binary Inverse",
+      "thresholdTrunc": "Truncate",
+      "thresholdToZero": "To Zero",
+      "thresholdToZeroInv": "To Zero Inverse",
+      "thresholdOtsu": "Otsu",
+      "method": "Método",
+      "threshold1": "Threshold 1",
+      "threshold2": "Threshold 2",
+      "intensity": "Intensidad",
+      "kernelSize": "Kernel Size",
+      "morphDilate": "Dilatación",
+      "morphErode": "Erosión",
+      "iterations": "Iteraciones",
+      "colorSpace": "Espacio de Color",
+      "frangiInfo": "Filtro de realce de vasos sanguíneos (sin parámetros configurables)"
+    },
+    "modal": {
+      "title": "Agregar Filtro",
+      "description": "Selecciona un filtro para agregar al pipeline de procesamiento ({{count}}/{{max}})"
+    },
+    "categories": {
+      "basic": "Básicos",
+      "channels": "Canales",
+      "conversion": "Conversión",
+      "enhancement": "Realce",
+      "detection": "Detección",
+      "morphology": "Morfología",
+      "filters": "Filtros"
+    },
+    "list": {
+      "brightness": {
+        "label": "Brillo",
+        "description": "Ajustar brillo de la imagen"
+      },
+      "contrast": {
+        "label": "Contraste",
+        "description": "Ajustar contraste"
+      },
+      "saturation": {
+        "label": "Saturación",
+        "description": "Ajustar saturación de color"
+      },
+      "gamma": {
+        "label": "Gamma",
+        "description": "Aclarar periferia oscura sin quemar luces"
+      },
+      "greenChannel": {
+        "label": "Canal Verde",
+        "description": "Extraer canal verde (mejor para retina)"
+      },
+      "redChannel": {
+        "label": "Canal Rojo",
+        "description": "Extraer canal rojo"
+      },
+      "blueChannel": {
+        "label": "Canal Azul",
+        "description": "Extraer canal azul"
+      },
+      "grayscale": {
+        "label": "Escala de Grises",
+        "description": "Convertir a blanco y negro"
+      },
+      "colorMapping": {
+        "label": "Falso color",
+        "description": "Mapa de calor (resalta variaciones sutiles)"
+      },
+      "invert": {
+        "label": "Invertir Colores",
+        "description": "Negativo de la imagen"
+      },
+      "clahe": {
+        "label": "CLAHE",
+        "description": "Realce adaptativo de contraste"
+      },
+      "histogramEqualization": {
+        "label": "Ecualización de Histograma",
+        "description": "Mejorar contraste global"
+      },
+      "sharpening": {
+        "label": "Nitidez",
+        "description": "Afilar bordes de la imagen"
+      },
+      "edgeDetection": {
+        "label": "Detección de Bordes",
+        "description": "Canny, Sobel, Laplacian"
+      },
+      "threshold": {
+        "label": "Umbralización",
+        "description": "Binarización de imagen"
+      },
+      "morphology": {
+        "label": "Dilatación/Erosión",
+        "description": "Operaciones morfológicas"
+      },
+      "tophat": {
+        "label": "Top-Hat (exudados)",
+        "description": "Resalta estructuras claras (exudados) en canal verde"
+      },
+      "blur": {
+        "label": "Desenfoque",
+        "description": "Gaussian, Median, Bilateral"
+      },
+      "frangi": {
+        "label": "Realce de Vasos",
+        "description": "Black-hat en canal verde (vasos/microhemorragias)"
+      }
+    }
+  },
+  "migration": {
+    "preparing": "Preparando…",
+    "title": "Migración a base cifrada",
+    "introDescription": "Hemos detectado datos clínicos de una versión anterior de DIRD+ guardados sin cifrado en este equipo (IndexedDB). DIRD+ v2.0 los moverá a una base SQLite cifrada con AES-256 (SQLCipher) protegida por tu contraseña.",
+    "diagramFrom": "IndexedDB (plano)",
+    "diagramTo": "SQLite + SQLCipher",
+    "backupNoticeBefore": "Antes de migrar, DIRD+ generará un",
+    "backupNoticeHighlight": "respaldo cifrado .dird",
+    "backupNoticeAfter": "con todos tus datos actuales.",
+    "backupNoticeSave": "El respaldo se descargará automáticamente; guárdalo en un lugar seguro.",
+    "warnNoExportPassphrase": "Necesitas configurar la contraseña de exportación en Ajustes → Seguridad antes de iniciar la migración.",
+    "errorNoExportPassphrase": "Configura primero la contraseña de exportación en Ajustes → Seguridad para poder generar el respaldo cifrado.",
+    "later": "Más tarde",
+    "start": "Iniciar migración",
+    "generatingBackup": "Generando respaldo cifrado .dird…",
+    "doneTitle": "Migración completada",
+    "doneDescription": "Tus datos ahora están cifrados en SQLCipher. Cerrando este diálogo…",
+    "errorTitle": "Error en la migración",
+    "cancel": "Cancelar",
+    "retry": "Reintentar"
+  },
+  "wizard": {
+    "title": "Configuración inicial de DIRD+",
+    "subtitle": "Paso {{n}} de 4",
+    "strengthVeryWeak": "muy débil",
+    "strengthWeak": "débil",
+    "strengthAcceptable": "aceptable",
+    "strengthGood": "buena",
+    "strengthStrong": "fuerte",
+    "strengthVeryStrong": "muy fuerte",
+    "welcomeIntro": "Antes de empezar configuraremos dos contraseñas que protegen tus datos clínicos:",
+    "appPasswordTitle": "Contraseña de la aplicación.",
+    "appPasswordDescription": "Cifra la base local con AES-256 (SQLCipher). Se pide en cada inicio.",
+    "exportPasswordTitle": "Contraseña de exportación.",
+    "exportPasswordWelcomeDescription": "Cifra los archivos .dird que exportes para compartir o respaldar.",
+    "noRecoveryWarning": "No existe recuperación de contraseña. Si las pierdes, tus datos cifrados quedarán inaccesibles permanentemente.",
+    "continue": "Continuar",
+    "appPasswordHeading": "Contraseña de la aplicación",
+    "passwordLabelMin": "Contraseña (mín. {{n}} caracteres)",
+    "strengthPrefix": "Fortaleza:",
+    "repeatPassword": "Repetir contraseña",
+    "passwordsDoNotMatch": "Las contraseñas no coinciden.",
+    "back": "Atrás",
+    "exportPasswordHeading": "Contraseña de exportación",
+    "exportPasswordDescription": "Recomendado: distinta a la de la aplicación. Se usa para cifrar los archivos .dird que envíes a colegas o subas a respaldos.",
+    "password": "Contraseña",
+    "confirmHeading": "Confirmación",
+    "confirmNoRecoveryHighlight": "Sin recuperación.",
+    "confirmNoRecoveryText": "Anthropic, los desarrolladores de DIRD+ ni nadie puede recuperar contraseñas perdidas.",
+    "confirmInaccessible": "Si olvidas la contraseña de la aplicación, los datos clínicos almacenados quedarán inaccesibles. Sin excepciones.",
+    "confirmUseManager": "Guarda ambas en un gestor de contraseñas (Bitwarden, KeePassXC) antes de continuar.",
+    "acknowledgeText": "Entiendo que si pierdo las contraseñas perderé el acceso a los datos cifrados permanentemente.",
+    "configuring": "Configurando...",
+    "createEncryptedDb": "Crear base cifrada"
+  }
+}

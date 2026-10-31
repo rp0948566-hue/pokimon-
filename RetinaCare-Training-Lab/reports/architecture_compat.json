@@ -1,0 +1,99 @@
+{
+ "stage1": {
+  "strict_load": true,
+  "params": 201738243,
+  "img_size": 768,
+  "ckpt_meta": {
+   "epoch": 12,
+   "auc": 0.9545826397292334,
+   "f1": 0.8692717123198753,
+   "grade1_acc": 0.7027397260273973,
+   "best_auc": 0.9545826397292334,
+   "patience_counter": 0,
+   "threshold": 0.2391715943813324,
+   "ema_applied": true
+  },
+  "onnx_max_abs_logit_diff": 2.0265579223632812e-06,
+  "seconds": 27.5
+ },
+ "MA": {
+  "strict_load": true,
+  "params_total_trainable": [
+   218336889,
+   218210361
+  ],
+  "onnx_max_abs_logit_diff": 0.00042724609375,
+  "seconds": 27.9
+ },
+ "HE": {
+  "strict_load": true,
+  "params_total_trainable": [
+   190502905,
+   190376377
+  ],
+  "onnx_max_abs_logit_diff": 1.9073486328125e-05,
+  "seconds": 20.9
+ },
+ "EX": {
+  "strict_load": true,
+  "params_total_trainable": [
+   187774545,
+   187648017
+  ],
+  "onnx_max_abs_logit_diff": 3.0517578125e-05,
+  "seconds": 24.4
+ },
+ "CWS": {
+  "strict_load": true,
+  "params_total_trainable": [
+   192677985,
+   192551457
+  ],
+  "onnx_max_abs_logit_diff": 2.8461217880249023e-05,
+  "seconds": 29.4
+ },
+ "vessel": {
+  "strict_load": true,
+  "params": 110189600,
+  "threshold": 0.4599609375,
+  "info": {
+   "weights": "ema",
+   "best_epoch": 53,
+   "best_val_dice": 0.7567611552465127,
+   "threshold": 0.4599609375,
+   "threshold_source": "best epoch 53"
+  },
+  "onnx_max_abs_logit_diff": 4.506111145019531e-05,
+  "seconds": 26.1
+ },
+ "fold0": {
+  "strict_load": true,
+  "params": 198911045,
+  "onnx_max_abs_logit_diff": 2.6226043701171875e-06,
+  "seconds": 13.5
+ },
+ "fold1": {
+  "strict_load": true,
+  "params": 198911045,
+  "onnx_max_abs_logit_diff": 2.1457672119140625e-06,
+  "seconds": 13.0
+ },
+ "fold2": {
+  "strict_load": true,
+  "params": 198911045,
+  "onnx_max_abs_logit_diff": 1.6689300537109375e-06,
+  "seconds": 13.4
+ },
+ "fold3": {
+  "strict_load": true,
+  "params": 198911045,
+  "onnx_max_abs_logit_diff": 3.5762786865234375e-06,
+  "seconds": 12.4
+ },
+ "fold4": {
+  "strict_load": true,
+  "params": 198911045,
+  "onnx_max_abs_logit_diff": 3.337860107421875e-06,
+  "seconds": 12.8
+ }
+}

@@ -1,0 +1,22 @@
+{
+ "date": "2026-10-30",
+ "lab": "/home/claude/Desktop/Dird/RetinaCare-Training-Lab",
+ "phases": {
+  "0_preflight": "PASS (inventory with hashes; no process on old path)",
+  "1_move": "PASS (rename on same fs; 90 non-venv files identical sha256; .venv rebuilt, old kept as .venv.premove)",
+  "2_datasets": "BLOCKED (DDR authorised by user, but Google Drive refused all 10 parts: 'Too many users have viewed or downloaded this file recently', may take up to 24 h; quota not bypassed. APTOS: no Kaggle token. IDRiD/DRIVE: logins. FGADR: restricted)",
+  "3_prepare": "PARTIAL (prepare_ddr/aptos/idrid/drive written + synthetic-layout tests; never run on real data)",
+  "4_baseline": "PARTIAL (Stage I/II/III evaluators implemented; synthetic 1-image cascade smoke only; NO real metrics)",
+  "5_training": "NOT_RUN (no labelled data; GPU currently not visible to nvidia-smi/torch)",
+  "6_candidate_export": "NOT_RUN",
+  "7_reports": "PARTIAL"
+ },
+ "architecture_compat": "all 11 deployed .pth/.pt load strict=True into upstream arch; ONNX max abs diff <=4.3e-4 (reports/architecture_compat.json)",
+ "tests": "27 pytest pass; 13 CLIs --help ok (plumbing only, not validation)",
+ "blockers": [
+  "DDR: Drive quota block; retry later or user downloads parts in a browser into data/downloads/ddr/",
+  "Kaggle token + rules",
+  "GPU lost: nvidia-smi 'Unable to determine the device handle for GPU0' (not reset by me)"
+ ],
+ "link_speed_measured": "9.4 MB/s (~75 Mbit/s) at 2026-10-30 14:2x => ~25 min for ~14 GB once Drive allows"
+}

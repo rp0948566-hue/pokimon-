@@ -1,0 +1,48 @@
+{
+ "help": {
+  "check_architecture_compat.py": true,
+  "download_datasets.py": true,
+  "evaluate_baselines.py": true,
+  "evaluate_candidate.py": true,
+  "export_onnx.py": true,
+  "inspect_dataset.py": true,
+  "preflight.py": true,
+  "prepare_aptos.py": true,
+  "prepare_ddr.py": true,
+  "prepare_drive.py": true,
+  "prepare_idrid.py": true,
+  "train_grading.py": true,
+  "train_lesions.py": true,
+  "train_vessels.py": true
+ },
+ "pytest": {
+  "passed": true,
+  "tail": [
+   "",
+   "-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html",
+   "27 passed, 1 warning in 34.26s"
+  ]
+ },
+ "gitignore": {
+  "ignored_ok": {
+   "data/raw/aptos/a.png": true,
+   "data/downloads/x.zip": true,
+   "checkpoints/grading/r/best.ckpt": true,
+   "models/pretrained/w.safetensors": true,
+   "exports/r/candidate.onnx": true,
+   ".env": true,
+   "kaggle.json": true,
+   ".venv/bin/python": true,
+   "experiments/baseline/x/predictions.csv": true
+  },
+  "tracked_ok": {
+   "trainlab/data/datasets.py": true,
+   "scripts/preflight.py": true,
+   "configs/grading_aptos.yaml": true,
+   "README.md": true
+  },
+  "passed": true
+ },
+ "production_repos_unchanged": true,
+ "passed": true
+}

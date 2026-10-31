@@ -1,0 +1,456 @@
+import React, { useState } from 'react';
+import { FileText, Lock, CheckCircle, AlertCircle } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
+import { toast } from 'sonner';
+import { useConfirm } from '@/hooks/useConfirm';
+import { Button } from '@/components/ui/button';
+import { Textarea } from '@/components/ui/textarea';
+import { Label } from '@/components/ui/label';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from '@/components/ui/dialog';
+import { generateSessionReport } from '@/lib/pdf/report-generator';
+import type { ReportType } from '@/lib/pdf/report-generator';
+import { db } from '@/lib/db/schema';
+import { useConfigStore } from '@/stores/config-store';
+import { processConclusion } from '@/lib/api/report-ai-service';
+import { classifyDiabeticRetinopathy, formatClassificationText } from '@/lib/analysis/dr-classifier';
+
+interface ReportGeneratorProps {
+  sessionId: number;
+  onReportGenerated?: () => void;
+}
+
+const ReportGeneratorComponent: React.FC<ReportGeneratorProps> = ({
+  sessionId,
+  onReportGenerated,
+}) => {
+  const { t, i18n } = useTranslation();
+  const { confirm, ConfirmDialogComponent } = useConfirm();
+  const [showDialog, setShowDialog] = useState(false);
+  const [evaluatorNotes, setEvaluatorNotes] = useState('');
+  const [generating, setGenerating] = useState(false);
+  const [previewGenerated, setPreviewGenerated] = useState(false);
+  const [hasInteractedWithPreview, setHasInteractedWithPreview] = useState(false);
+  const [forceOffline, setForceOffline] = useState(false);
+
+  const handleGenerateReport = async (type: ReportType) => {
+    setGenerating(true);
+    try {
+      // 1. Gather report data
+      const session = await db.sessions.get(sessionId);
+      if (!session) throw new Error('Session not found');
+
+      const patient = await db.patients.get(session.patientId);
+      if (!patient) throw new Error('Patient not found');
+
+      const images = await db.images.where('sessionId').equals(sessionId).toArray();
+      const allDetections = await Promise.all(
+        images.map((img) => db.detections.where('imageId').equals(img.id!).toArray())
+      );
+      const detections = allDetections.flat();
+
+      // 2. Comentario clínico local: la guía activa clasifica (siempre, sin red).
+      const generateLocalComment = async (): Promise<string> => {
+        const detectionsByEye = new Map<'OD' | 'OI', any[]>();
+        for (const img of images) {
+          const imgDetections = detections.filter(d => d.imageId === img.id);
+          if (imgDetections.length > 0) {
+            const current = detectionsByEye.get(img.eyeType) || [];
+            detectionsByEye.set(img.eyeType, [...current, ...imgDetections]);
+          }
+        }
+        const { config } = useConfigStore.getState();
+        const localClassification = await classifyDiabeticRetinopathy(detectionsByEye, patient, config.activeGuideline);
+        return formatClassificationText(localClassification);
+      };
+
+      let systemComment = await generateLocalComment();
+      let aiPolished = false;
+
+      // 3. Pulido opcional con el LLM local activo (no clasifica, solo redacta).
+      if (!forceOffline) {
+        try {
+          const draft = evaluatorNotes?.trim()
+            ? `${systemComment}\n\nNotas del evaluador: ${evaluatorNotes.trim()}`
+            : systemComment;
+          const { processed_data, ai_processed } = await processConclusion(draft, i18n.language);
+          if (ai_processed && typeof processed_data === 'string' && processed_data.trim()) {
+            systemComment = processed_data.trim();
+            aiPolished = true;
+          }
+        } catch (llmError) {
+          console.warn('Pulido LLM falló, uso comentario local sin pulir:', llmError);
+        }
+      }
+
+      // Append system comment to notes
+      // The AI now integrates the user's notes, so we use the AI output as the primary content.
+      // We store the original user input in 'originalNotes' for reference.
+      const finalNotes = systemComment || evaluatorNotes;
+
+      // 4. Generate PDF with the processed notes
+      const pdfBlob = await generateSessionReport(sessionId, type, finalNotes);
+
+      // Check if a report of the same type already exists for this session
+      const existingReport = await db.reports
+        .where({ sessionId: sessionId, type: type })
+        .first();
+
+      if (existingReport && existingReport.id !== undefined) {
+        // Update the existing report instead of creating a duplicate
+        await db.reports.update(existingReport.id, {
+          pdfBlob: pdfBlob,
+          evaluatorNotes: finalNotes,
+          originalNotes: evaluatorNotes, // Save original draft
+          generatedAt: new Date(),
+        });
+      } else {
+        // Create a new report
+        await db.reports.add({
+          sessionId: sessionId,
+          type: type,
+          reportCategory: 'single',
+          pdfBlob: pdfBlob,
+          evaluatorNotes: finalNotes,
+          originalNotes: evaluatorNotes, // Save original draft
+          areasOfInterest: [], // Initialize empty
+          generatedAt: new Date(),
+        });
+      }
+
+      // Only download final reports automatically, not preview reports
+      if (type === 'final') {
+        // Download PDF for final reports
+        const url = URL.createObjectURL(pdfBlob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `DIRD_Reporte_${type.toUpperCase()}_${sessionId}_${new Date().toISOString().split('T')[0]}.pdf`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }
+
+      // If final report, lock session
+      if (type === 'final') {
+        await db.sessions.update(sessionId, {
+          locked: true,
+          lockedAt: new Date(),
+        });
+      }
+
+      // Close dialog only if final report
+      if (type === 'final') {
+        setShowDialog(false);
+        onReportGenerated?.();
+
+        if (aiPolished) {
+          toast.success(t('reports.generated'));
+        } else {
+          toast.success(t('reports.generated') + ' ' + t('reports.generatedOffline'));
+        }
+      } else {
+        // Preview generated successfully
+        setPreviewGenerated(true);
+
+        if (aiPolished) {
+          toast.success(t('reports.previewGenerated'));
+        } else {
+          toast.success(t('reports.previewGenerated') + ' (' + t('reports.generatedOffline') + ')');
+        }
+
+        // Close dialog and refresh to show the preview in the list
+        setShowDialog(false);
+        onReportGenerated?.();
+      }
+      
+    } catch (error) {
+      console.error('Error generating report:', error);
+      toast.error(t('errors.unknown'));
+    } finally {
+      setGenerating(false);
+    }
+  };
+
+  const handleOpenDialog = async () => {
+    setShowDialog(true);
+
+    // Check if a preview report already exists for this session
+    const existingPreview = await db.reports
+      .where({ sessionId: sessionId, type: 'preview' })
+      .first();
+
+    if (existingPreview) {
+      // Preview already exists, show options to regenerate or finalize
+      setPreviewGenerated(true);
+
+      // Check if user has interacted with the preview
+      const hasInteracted = existingPreview.previewViewed ||
+                           existingPreview.previewDownloaded ||
+                           existingPreview.conclusionEdited;
+      setHasInteractedWithPreview(hasInteracted || false);
+    } else {
+      // No preview yet, show only generate preview option
+      setPreviewGenerated(false);
+      setHasInteractedWithPreview(false);
+    }
+  };
+
+  const handleDeletePreview = async () => {
+    try {
+      const existingPreview = await db.reports
+        .where({ sessionId: sessionId, type: 'preview' })
+        .first();
+
+      if (existingPreview) {
+        await db.reports.delete(existingPreview.id!);
+        setPreviewGenerated(false);
+        toast.success(t('reports.previewDeleted'));
+        onReportGenerated?.(); // Refresh reports list
+      }
+    } catch (error) {
+      console.error('Error deleting preview:', error);
+      toast.error(t('reports.previewDeleteError'));
+    }
+  };
+
+  return (
+    <>
+      <Button
+        onClick={handleOpenDialog}
+        className="flex items-center justify-center gap-2 h-auto min-h-[40px] py-2 whitespace-normal text-center leading-tight w-full sm:w-auto"
+      >
+        <FileText className="w-4 h-4 flex-shrink-0" />
+        <span>{t('reports.generate')}</span>
+      </Button>
+
+      <Dialog open={showDialog} onOpenChange={setShowDialog}>
+        <DialogContent className="max-w-2xl">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <FileText className="w-5 h-5 text-primary-600" />
+              {t('reports.generate')}
+            </DialogTitle>
+            <DialogDescription>
+              {t('reports.dialogDescription')}
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="space-y-6 py-4">
+            <div className="space-y-2">
+              <Label htmlFor="notes" className="text-sm font-semibold text-coal-700">
+                {t('reports.evaluatorNotes')}
+              </Label>
+              <Textarea
+                id="notes"
+                value={evaluatorNotes}
+                onChange={(e) => setEvaluatorNotes(e.target.value)}
+                placeholder={t('reports.evaluatorNotesPlaceholder')}
+                rows={5}
+                className="resize-none"
+                disabled={generating || previewGenerated}
+              />
+            </div>
+
+            {!previewGenerated && (
+              <div className="flex items-start gap-2 p-3 rounded-lg border border-smoke-200 bg-smoke-50">
+                <input
+                  id="forceOffline"
+                  type="checkbox"
+                  checked={forceOffline}
+                  onChange={(e) => setForceOffline(e.target.checked)}
+                  disabled={generating}
+                  className="mt-1 cursor-pointer"
+                />
+                <label htmlFor="forceOffline" className="text-sm text-coal-700 cursor-pointer">
+                  <span className="font-medium">{t('reports.generateWithoutAI')}</span>
+                  <span className="block text-xs text-smoke-600 mt-0.5">
+                    {t('reports.generateWithoutAIDescription')}
+                  </span>
+                </label>
+              </div>
+            )}
+
+            {!previewGenerated ? (
+              <>
+                {/* No preview exists - Show only generate preview option */}
+                <div className="flex flex-col p-5 rounded-xl border-2 border-primary-200 bg-gradient-to-br from-primary-50/50 to-white">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="p-2 rounded-lg bg-primary-500 text-white">
+                      <FileText className="w-5 h-5" />
+                    </div>
+                    <div className="flex-1">
+                      <h4 className="font-bold text-coal-800 text-base">
+                        {t('reports.preview')}
+                      </h4>
+                      <p className="text-xs text-smoke-600">
+                        {t('reports.dialog.withAI')}
+                      </p>
+                    </div>
+                  </div>
+                  <p className="text-sm text-smoke-700 mb-4 leading-relaxed">
+                    {t('reports.previewDescription')}
+                  </p>
+                  <Button
+                    size="lg"
+                    className="w-full bg-primary-600 hover:bg-primary-700 text-white"
+                    onClick={() => handleGenerateReport('preview')}
+                    disabled={generating}
+                  >
+                    {generating ? (
+                      <>
+                        <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
+                        {t('reports.processingWithAI')}
+                      </>
+                    ) : (
+                      <>
+                        <FileText className="w-4 h-4 mr-2" />
+                        {t('reports.previewButton')}
+                      </>
+                    )}
+                  </Button>
+                </div>
+
+                {/* Important Note */}
+                <div className="flex items-start gap-3 p-3 rounded-lg bg-blue-50 border border-blue-100">
+                  <AlertCircle className="w-5 h-5 text-blue-500 mt-0.5 shrink-0" />
+                  <p className="text-[11px] text-blue-800 leading-tight">
+                    <strong>{t('reports.importantNoteTitle')}</strong> {t('reports.importantNoteBody')}
+                  </p>
+                </div>
+              </>
+            ) : (
+              <>
+                {/* Preview exists - Show options */}
+                <div className="flex items-start gap-3 p-4 rounded-lg bg-green-50 border-2 border-green-200">
+                  <CheckCircle className="w-6 h-6 text-green-500 mt-0.5 shrink-0" />
+                  <div className="flex-1">
+                    <p className="text-sm font-semibold text-green-800 mb-1">
+                      ✓ {t('reports.dialog.previewExists')}
+                    </p>
+                    <p className="text-xs text-green-700 leading-relaxed">
+                      {t('reports.dialog.previewExistsDescription')}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {/* Option 1: Regenerate Preview */}
+                  <div className="flex flex-col p-4 rounded-xl border-2 border-amber-200 bg-amber-50/50 hover:border-amber-300 transition-all">
+                    <div className="flex items-center gap-2 mb-3">
+                      <div className="p-1.5 rounded-lg bg-amber-500 text-white">
+                        <FileText className="w-4 h-4" />
+                      </div>
+                      <h4 className="font-bold text-coal-800 text-sm">
+                        {t('reports.dialog.regenerateTitle')}
+                      </h4>
+                    </div>
+                    <p className="text-xs text-smoke-600 mb-4 flex-grow">
+                      {t('reports.dialog.regenerateDescription')}
+                    </p>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="w-full border-amber-300 hover:bg-amber-100"
+                      onClick={async () => {
+                        const confirmed = await confirm({
+                          title: t('reports.dialog.regenerateConfirmTitle'),
+                          description: t('reports.dialog.regenerateConfirmDescription'),
+                          confirmText: t('common.confirm'),
+                          cancelText: t('common.cancel'),
+                          variant: 'warning',
+                        });
+
+                        if (confirmed) {
+                          await handleDeletePreview();
+                          await handleGenerateReport('preview');
+                        }
+                      }}
+                      disabled={generating}
+                    >
+                      {generating ? (
+                        t('ui.loading')
+                      ) : (
+                        <>
+                          <FileText className="w-3.5 h-3.5 mr-2" />
+                          {t('reports.dialog.regenerateButton')}
+                        </>
+                      )}
+                    </Button>
+                  </div>
+
+                  {/* Option 2: Finalize Report */}
+                  <div className="flex flex-col p-4 rounded-xl border-2 border-accent-200 bg-accent-50/50 hover:border-accent-300 transition-all">
+                    <div className="flex items-center gap-2 mb-3">
+                      <div className="p-1.5 rounded-lg bg-accent-500 text-white">
+                        <Lock className="w-4 h-4" />
+                      </div>
+                      <h4 className="font-bold text-coal-800 text-sm">
+                        {t('reports.dialog.finalizeTitle')}
+                      </h4>
+                    </div>
+                    <p className="text-xs text-smoke-600 mb-4 flex-grow">
+                      {t('reports.dialog.finalizeDescription')}
+                    </p>
+                    {!hasInteractedWithPreview && (
+                      <div className="mb-3 p-2 rounded-md bg-amber-50 border border-amber-200">
+                        <p className="text-[10px] text-amber-800 leading-tight">
+                          <strong>{t('reports.dialog.interactionRequired', { defaultValue: 'Interacción requerida:' })}</strong> {t('reports.dialog.mustInteractFirst', { defaultValue: 'Debe visualizar, descargar o editar el preview primero' })}
+                        </p>
+                      </div>
+                    )}
+                    <Button
+                      size="sm"
+                      className="w-full bg-accent-500 hover:bg-accent-600 text-white disabled:opacity-50 disabled:cursor-not-allowed"
+                      onClick={async () => {
+                        const confirmed = await confirm({
+                          title: t('confirmations.finalizeReportTitle') || t('reports.finalize'),
+                          description: t('reports.finalWarning'),
+                          confirmText: t('common.confirm'),
+                          cancelText: t('common.cancel'),
+                          variant: 'warning',
+                        });
+
+                        if (confirmed) {
+                          handleGenerateReport('final');
+                        }
+                      }}
+                      disabled={generating || !hasInteractedWithPreview}
+                      title={!hasInteractedWithPreview ? t('reports.dialog.mustInteractFirst', { defaultValue: 'Debe visualizar, descargar o editar el preview primero' }) : ''}
+                    >
+                      {generating ? (
+                        t('ui.loading')
+                      ) : (
+                        <>
+                          <CheckCircle className="w-3.5 h-3.5 mr-2" />
+                          {t('reports.dialog.finalizeButton')}
+                        </>
+                      )}
+                    </Button>
+                  </div>
+                </div>
+
+                {/* Warning Note */}
+                <div className="flex items-start gap-3 p-3 rounded-lg bg-amber-50 border border-amber-100">
+                  <AlertCircle className="w-5 h-5 text-amber-500 mt-0.5 shrink-0" />
+                  <p className="text-[11px] text-amber-800 leading-tight">
+                    <strong>{t('reports.dialog.warningTitle')}</strong> {t('reports.dialog.warningBody')}
+                  </p>
+                </div>
+              </>
+            )}
+          </div>
+        </DialogContent>
+      </Dialog>
+      {ConfirmDialogComponent}
+    </>
+  );
+};
+
+export default ReportGeneratorComponent;
+

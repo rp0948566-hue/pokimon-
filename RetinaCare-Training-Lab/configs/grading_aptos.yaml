@@ -1,0 +1,18 @@
+# 5-class DR grading, NEW transfer-learning candidate (not the deployed Stage I/III architecture).
+name: grading_aptos
+model: convnextv2_nano.fcmae_ft_in22k_in1k
+pretrained: true
+image_size: 320          # trial options: 224 / 320 / 384
+batch_size: auto         # measured VRAM probe, candidates 8,4,2,1
+epochs: 5                # first real run; expand to 15 only if allowed
+lr: 1.0e-4               # alt 3e-5
+weight_decay: 0.01
+freeze_epochs: 1         # head-only warm-up then full unfreeze
+warmup_epochs: 1
+patience: 4
+grad_accum: 2
+amp: true
+seed: 42
+num_workers: 6
+train_manifest: data/manifests/train/aptos_train.csv
+val_manifest: data/manifests/val/aptos_val.csv

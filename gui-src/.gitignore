@@ -1,0 +1,31 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build artifacts
+dist/
+build/
+target/
+*.local
+__pycache__/
+*.pyc
+
+# Local cloned skill repositories
+plugins_repo/
+pstack/
+caveman/
+superpowers/
+
+# Tauri desktop artifacts
+apps/desktop/src-tauri/target/
+
+# Environment files
+.env
+.env*.local
+
+# IDE and OS
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
+.idea/

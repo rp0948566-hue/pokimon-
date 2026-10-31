@@ -1,0 +1,15 @@
+torch
+torchvision
+timm
+numpy
+pandas
+scikit-learn
+pillow
+opencv-python-headless<5
+matplotlib
+pyyaml
+onnx
+onnxruntime
+kaggle
+pytest
+albumentations

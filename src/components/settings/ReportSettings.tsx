@@ -1,0 +1,538 @@
+import { useTranslation } from 'react-i18next';
+import { Card } from '@/components/ui/card';
+import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
+import { Switch } from '@/components/ui/switch';
+import { Select } from '@/components/ui/select';
+import { Textarea } from '@/components/ui/textarea';
+import { useConfigStore, DEFAULT_CONFIG } from '@/stores/config-store';
+import { FileText, Image as ImageIcon, Layout, PenTool, Palette, Brain } from 'lucide-react';
+
+export default function ReportSettings() {
+  const { t } = useTranslation();
+  const { config, updateReportConfig, updateAIConclusion } = useConfigStore();
+  
+  // Ensure we have all fields even if local config is stale
+  const report = {
+    ...DEFAULT_CONFIG.report,
+    ...(config.report || {}),
+    gallery: {
+      ...DEFAULT_CONFIG.report.gallery,
+      ...(config.report?.gallery || {})
+    },
+    patientInfoFields: {
+      ...DEFAULT_CONFIG.report.patientInfoFields,
+      ...(config.report?.patientInfoFields || {})
+    }
+  };
+
+  const aiConclusion = {
+    ...DEFAULT_CONFIG.aiConclusion,
+    ...(config.aiConclusion || {})
+  };
+
+  const handleLogoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        if (event.target?.result) {
+          updateReportConfig({ 
+            customLogo: event.target.result as string,
+            useSystemLogo: false 
+          });
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  return (
+    <div className="space-y-6">
+      {/* General Settings */}
+      <Card className="p-6 dark:bg-dark-surface dark:border-coal-700">
+        <h2 className="text-xl font-semibold text-coal-800 dark:text-dark-text mb-4 flex items-center gap-2">
+          <FileText className="h-5 w-5" />
+          {t('settings.report.general.title')}
+        </h2>
+        <div className="space-y-4">
+          <div>
+            <Label className="dark:text-dark-text">{t('settings.report.general.reportTitle')}</Label>
+            <Input
+              value={report.title}
+              onChange={(e) => updateReportConfig({ title: e.target.value })}
+              className="mt-1 dark:bg-dark-surface dark:border-coal-600 dark:text-dark-text"
+            />
+          </div>
+          <div>
+            <Label className="dark:text-dark-text">{t('settings.report.general.reportSubtitle')}</Label>
+            <Input
+              value={report.subtitle}
+              onChange={(e) => updateReportConfig({ subtitle: e.target.value })}
+              className="mt-1 dark:bg-dark-surface dark:border-coal-600 dark:text-dark-text"
+            />
+          </div>
+        </div>
+      </Card>
+
+      {/* AI Conclusion Settings */}
+      <Card className="p-6 dark:bg-dark-surface dark:border-coal-700">
+        <h2 className="text-xl font-semibold text-coal-800 dark:text-dark-text mb-4 flex items-center gap-2">
+          <Brain className="h-5 w-5" />
+          {t('settings.report.ai.title') || 'AI Conclusion Configuration'}
+        </h2>
+        <div className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="flex items-center space-x-2">
+              <Switch
+                id="ai-general"
+                checked={aiConclusion.generalConclusion}
+                onCheckedChange={(checked) => updateAIConclusion({ generalConclusion: checked })}
+              />
+              <Label htmlFor="ai-general" className="dark:text-dark-text">
+                {t('settings.report.ai.generalConclusion') || 'General Conclusion'}
+              </Label>
+            </div>
+            
+            <div className="flex items-center space-x-2">
+              <Switch
+                id="ai-per-eye"
+                checked={aiConclusion.perEyeAnalysis}
+                onCheckedChange={(checked) => updateAIConclusion({ perEyeAnalysis: checked })}
+              />
+              <Label htmlFor="ai-per-eye" className="dark:text-dark-text">
+                {t('settings.report.ai.perEyeAnalysis') || 'Analysis Per Eye'}
+              </Label>
+            </div>
+
+            <div className="flex items-center space-x-2">
+              <Switch
+                id="ai-guidelines"
+                checked={aiConclusion.guidelineAlignment}
+                onCheckedChange={(checked) => updateAIConclusion({ guidelineAlignment: checked })}
+              />
+              <Label htmlFor="ai-guidelines" className="dark:text-dark-text">
+                {t('settings.report.ai.guidelineAlignment') || 'Align with Clinical Guidelines'}
+              </Label>
+            </div>
+
+            <div className="flex items-center space-x-2">
+              <Switch
+                id="ai-treatment"
+                checked={aiConclusion.treatmentRecommendations}
+                onCheckedChange={(checked) => updateAIConclusion({ treatmentRecommendations: checked })}
+              />
+              <Label htmlFor="ai-treatment" className="dark:text-dark-text">
+                {t('settings.report.ai.treatmentRecommendations') || 'Treatment Recommendations'}
+              </Label>
+            </div>
+
+            <div className="flex items-center space-x-2">
+              <Switch
+                id="ai-risks"
+                checked={aiConclusion.riskFactors}
+                onCheckedChange={(checked) => updateAIConclusion({ riskFactors: checked })}
+              />
+              <Label htmlFor="ai-risks" className="dark:text-dark-text">
+                {t('settings.report.ai.riskFactors') || 'Risk Factors Analysis'}
+              </Label>
+            </div>
+          </div>
+
+          <div className="pt-4 border-t border-coal-200 dark:border-coal-600">
+            <Label htmlFor="ai-custom-prompt" className="dark:text-dark-text">
+              {t('settings.report.ai.customPrompt') || 'Custom Prompt Instructions (Max 500 chars)'}
+            </Label>
+            <Textarea
+              id="ai-custom-prompt"
+              value={aiConclusion.customPrompt}
+              onChange={(e) => updateAIConclusion({ customPrompt: e.target.value.slice(0, 500) })}
+              className="mt-2 dark:bg-dark-surface dark:border-coal-600 dark:text-dark-text min-h-[100px]"
+              placeholder={t('settings.report.ai.customPromptPlaceholder') || 'E.g., "Use very simple language", "Focus on macular edema", etc.'}
+            />
+            <div className="text-right text-xs text-gray-500 mt-1">
+              {aiConclusion.customPrompt.length}/500
+            </div>
+          </div>
+        </div>
+      </Card>
+
+      {/* Logo Settings */}
+      <Card className="p-6 dark:bg-dark-surface dark:border-coal-700">
+        <h2 className="text-xl font-semibold text-coal-800 dark:text-dark-text mb-4 flex items-center gap-2">
+          <ImageIcon className="h-5 w-5" />
+          {t('settings.report.logo.title')}
+        </h2>
+        <div className="space-y-4">
+          <div className="flex items-center justify-between">
+            <Label className="dark:text-dark-text">{t('settings.report.logo.useSystem')}</Label>
+            <Switch
+              checked={report.useSystemLogo}
+              onCheckedChange={(checked) => updateReportConfig({ useSystemLogo: checked })}
+            />
+          </div>
+
+          {!report.useSystemLogo && (
+            <div className="mt-4">
+              <Label className="dark:text-dark-text">{t('settings.report.logo.uploadCustom')}</Label>
+              <div className="flex gap-4 mt-2 items-start">
+                 <Input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleLogoUpload}
+                  className="dark:bg-dark-surface dark:border-coal-600"
+                />
+                {report.customLogo && (
+                  <div className="w-16 h-16 border rounded flex items-center justify-center p-1 bg-white">
+                    <img
+                      src={report.customLogo}
+                      alt={t('settings.reportCfg.customLogoAlt')}
+                      className="max-w-full max-h-full object-contain"
+                    />
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+        </div>
+      </Card>
+
+      {/* Colors */}
+      <Card className="p-6 dark:bg-dark-surface dark:border-coal-700">
+        <h2 className="text-xl font-semibold text-coal-800 dark:text-dark-text mb-4 flex items-center gap-2">
+          <Palette className="h-5 w-5" />
+          {t('settings.report.colors.title')}
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div>
+            <Label className="dark:text-dark-text">{t('settings.report.colors.primary')}</Label>
+            <div className="flex gap-2 mt-2">
+              <Input
+                type="color"
+                value={report.colors.primary}
+                onChange={(e) => updateReportConfig({ 
+                  colors: { ...report.colors, primary: e.target.value } 
+                })}
+                className="w-12 h-10 p-1 dark:bg-dark-surface dark:border-coal-600"
+              />
+               <Input
+                type="text"
+                value={report.colors.primary}
+                onChange={(e) => updateReportConfig({ 
+                  colors: { ...report.colors, primary: e.target.value } 
+                })}
+                className="flex-1 dark:bg-dark-surface dark:border-coal-600 dark:text-dark-text"
+              />
+            </div>
+          </div>
+          <div>
+            <Label className="dark:text-dark-text">{t('settings.report.colors.secondary')}</Label>
+            <div className="flex gap-2 mt-2">
+              <Input
+                type="color"
+                value={report.colors.secondary}
+                onChange={(e) => updateReportConfig({ 
+                  colors: { ...report.colors, secondary: e.target.value } 
+                })}
+                className="w-12 h-10 p-1 dark:bg-dark-surface dark:border-coal-600"
+              />
+              <Input
+                type="text"
+                value={report.colors.secondary}
+                onChange={(e) => updateReportConfig({ 
+                  colors: { ...report.colors, secondary: e.target.value } 
+                })}
+                className="flex-1 dark:bg-dark-surface dark:border-coal-600 dark:text-dark-text"
+              />
+            </div>
+          </div>
+          <div>
+            <Label className="dark:text-dark-text">{t('settings.report.colors.text')}</Label>
+            <div className="flex gap-2 mt-2">
+              <Input
+                type="color"
+                value={report.colors.text}
+                onChange={(e) => updateReportConfig({ 
+                  colors: { ...report.colors, text: e.target.value } 
+                })}
+                className="w-12 h-10 p-1 dark:bg-dark-surface dark:border-coal-600"
+              />
+               <Input
+                type="text"
+                value={report.colors.text}
+                onChange={(e) => updateReportConfig({ 
+                  colors: { ...report.colors, text: e.target.value } 
+                })}
+                className="flex-1 dark:bg-dark-surface dark:border-coal-600 dark:text-dark-text"
+              />
+            </div>
+          </div>
+        </div>
+      </Card>
+
+      {/* Sections Visibility */}
+      <Card className="p-6 dark:bg-dark-surface dark:border-coal-700">
+        <h2 className="text-xl font-semibold text-coal-800 dark:text-dark-text mb-4 flex items-center gap-2">
+          <Layout className="h-5 w-5" />
+          {t('settings.report.sections.title')}
+        </h2>
+        <div className="space-y-3">
+          <div className="flex items-center space-x-2">
+            <Switch
+              id="section-patient"
+              checked={report.sections.patientInfo}
+              onCheckedChange={(checked) => updateReportConfig({ 
+                sections: { ...report.sections, patientInfo: checked } 
+              })}
+            />
+            <Label htmlFor="section-patient" className="dark:text-dark-text">{t('settings.report.sections.patientInfo')}</Label>
+          </div>
+          <div className="flex items-center space-x-2">
+            <Switch
+              id="section-summary"
+              checked={report.sections.summary}
+              onCheckedChange={(checked) => updateReportConfig({ 
+                sections: { ...report.sections, summary: checked } 
+              })}
+            />
+            <Label htmlFor="section-summary" className="dark:text-dark-text">{t('settings.report.sections.summary')}</Label>
+          </div>
+          <div className="flex items-center space-x-2">
+            <Switch
+              id="section-gallery"
+              checked={report.sections.gallery}
+              onCheckedChange={(checked) => updateReportConfig({ 
+                sections: { ...report.sections, gallery: checked } 
+              })}
+            />
+            <Label htmlFor="section-gallery" className="dark:text-dark-text">{t('settings.report.sections.gallery')}</Label>
+          </div>
+          <div className="flex items-center space-x-2">
+            <Switch
+              id="section-notes"
+              checked={report.sections.evaluatorNotes}
+              onCheckedChange={(checked) => updateReportConfig({ 
+                sections: { ...report.sections, evaluatorNotes: checked } 
+              })}
+            />
+            <Label htmlFor="section-notes" className="dark:text-dark-text">{t('settings.report.sections.evaluatorNotes')}</Label>
+          </div>
+        </div>
+      </Card>
+
+      {/* Patient Details Options */}
+      {report.sections.patientInfo && report.patientInfoFields && (
+        <Card className="p-6 dark:bg-dark-surface dark:border-coal-700">
+           <h2 className="text-xl font-semibold text-coal-800 dark:text-dark-text mb-4 flex items-center gap-2">
+            <Layout className="h-5 w-5" />
+            {t('settings.report.patientDetails.title')}
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="flex items-center space-x-2">
+              <Switch
+                id="field-name"
+                checked={report.patientInfoFields.name}
+                onCheckedChange={(checked) => updateReportConfig({ 
+                  patientInfoFields: { ...report.patientInfoFields, name: checked } 
+                })}
+              />
+              <Label htmlFor="field-name" className="dark:text-dark-text">{t('settings.report.patientDetails.name')}</Label>
+            </div>
+            <div className="flex items-center space-x-2">
+              <Switch
+                id="field-id"
+                checked={report.patientInfoFields.id}
+                onCheckedChange={(checked) => updateReportConfig({ 
+                  patientInfoFields: { ...report.patientInfoFields, id: checked } 
+                })}
+              />
+              <Label htmlFor="field-id" className="dark:text-dark-text">{t('settings.report.patientDetails.id')}</Label>
+            </div>
+             <div className="flex items-center space-x-2">
+              <Switch
+                id="field-age"
+                checked={report.patientInfoFields.age}
+                onCheckedChange={(checked) => updateReportConfig({ 
+                  patientInfoFields: { ...report.patientInfoFields, age: checked } 
+                })}
+              />
+              <Label htmlFor="field-age" className="dark:text-dark-text">{t('settings.report.patientDetails.age')}</Label>
+            </div>
+             <div className="flex items-center space-x-2">
+              <Switch
+                id="field-diabetes"
+                checked={report.patientInfoFields.diabetes}
+                onCheckedChange={(checked) => updateReportConfig({ 
+                  patientInfoFields: { ...report.patientInfoFields, diabetes: checked } 
+                })}
+              />
+              <Label htmlFor="field-diabetes" className="dark:text-dark-text">{t('settings.report.patientDetails.diabetes')}</Label>
+            </div>
+             <div className="flex items-center space-x-2">
+              <Switch
+                id="field-hta"
+                checked={report.patientInfoFields.hta}
+                onCheckedChange={(checked) => updateReportConfig({ 
+                  patientInfoFields: { ...report.patientInfoFields, hta: checked } 
+                })}
+              />
+              <Label htmlFor="field-hta" className="dark:text-dark-text">{t('settings.report.patientDetails.hta')}</Label>
+            </div>
+             <div className="flex items-center space-x-2">
+              <Switch
+                id="field-dlp"
+                checked={report.patientInfoFields.dlp}
+                onCheckedChange={(checked) => updateReportConfig({ 
+                  patientInfoFields: { ...report.patientInfoFields, dlp: checked } 
+                })}
+              />
+              <Label htmlFor="field-dlp" className="dark:text-dark-text">{t('settings.report.patientDetails.dlp')}</Label>
+            </div>
+             <div className="flex items-center space-x-2">
+              <Switch
+                id="field-medications"
+                checked={report.patientInfoFields.medications}
+                onCheckedChange={(checked) => updateReportConfig({ 
+                  patientInfoFields: { ...report.patientInfoFields, medications: checked } 
+                })}
+              />
+              <Label htmlFor="field-medications" className="dark:text-dark-text">{t('settings.report.patientDetails.medications')}</Label>
+            </div>
+             <div className="flex items-center space-x-2">
+              <Switch
+                id="field-otherConditions"
+                checked={report.patientInfoFields.otherConditions}
+                onCheckedChange={(checked) => updateReportConfig({ 
+                  patientInfoFields: { ...report.patientInfoFields, otherConditions: checked } 
+                })}
+              />
+              <Label htmlFor="field-otherConditions" className="dark:text-dark-text">{t('settings.report.patientDetails.otherConditions')}</Label>
+            </div>
+             <div className="flex items-center space-x-2">
+              <Switch
+                id="field-sessionDate"
+                checked={report.patientInfoFields.sessionDate}
+                onCheckedChange={(checked) => updateReportConfig({ 
+                  patientInfoFields: { ...report.patientInfoFields, sessionDate: checked } 
+                })}
+              />
+              <Label htmlFor="field-sessionDate" className="dark:text-dark-text">{t('settings.report.patientDetails.sessionDate')}</Label>
+            </div>
+             <div className="flex items-center space-x-2">
+              <Switch
+                id="field-sessionNotes"
+                checked={report.patientInfoFields.sessionNotes}
+                onCheckedChange={(checked) => updateReportConfig({ 
+                  patientInfoFields: { ...report.patientInfoFields, sessionNotes: checked } 
+                })}
+              />
+              <Label htmlFor="field-sessionNotes" className="dark:text-dark-text">{t('settings.report.patientDetails.sessionNotes')}</Label>
+            </div>
+          </div>
+        </Card>
+      )}
+
+      {/* Gallery Options */}
+      {report.sections.gallery && (
+        <Card className="p-6 dark:bg-dark-surface dark:border-coal-700">
+          <h2 className="text-xl font-semibold text-coal-800 dark:text-dark-text mb-4 flex items-center gap-2">
+            <ImageIcon className="h-5 w-5" />
+            {t('settings.report.gallery.title')}
+          </h2>
+          <div className="space-y-4">
+            <div className="flex flex-col space-y-2">
+              <Label htmlFor="images-per-row" className="dark:text-dark-text">{t('settings.reportCfg.imagesPerRow')}</Label>
+              <Select
+                value={report.gallery.imagesPerRow?.toString() || '2'}
+                onValueChange={(value) => updateReportConfig({
+                  gallery: { ...report.gallery, imagesPerRow: parseInt(value) }
+                })}
+                options={[
+                  { label: t('settings.reportCfg.imagesPerRowOptions.one'), value: "1" },
+                  { label: t('settings.reportCfg.imagesPerRowOptions.two'), value: "2" }
+                ]}
+              />
+            </div>
+
+            <div className="flex items-center justify-between">
+              <Label htmlFor="show-quadrants" className="dark:text-dark-text">{t('settings.reportCfg.showQuadrantLines')}</Label>
+              <Switch
+                id="show-quadrants"
+                checked={report.gallery.showQuadrantLines !== false}
+                onCheckedChange={(checked) => updateReportConfig({ 
+                  gallery: { ...report.gallery, showQuadrantLines: checked } 
+                })}
+              />
+            </div>
+
+            <div className="flex items-center justify-between">
+              <Label htmlFor="show-measurements" className="dark:text-dark-text">{t('settings.reportCfg.showMeasurements')}</Label>
+              <Switch
+                id="show-measurements"
+                checked={report.gallery.showMeasurements !== false}
+                onCheckedChange={(checked) => updateReportConfig({ 
+                  gallery: { ...report.gallery, showMeasurements: checked } 
+                })}
+              />
+            </div>
+
+            <div className="flex items-center justify-between">
+              <Label htmlFor="show-optic-disc" className="dark:text-dark-text">{t('settings.reportCfg.showOpticDiscArea')}</Label>
+              <Switch
+                id="show-optic-disc"
+                checked={report.gallery.showOpticDiscArea !== false}
+                onCheckedChange={(checked) => updateReportConfig({ 
+                  gallery: { ...report.gallery, showOpticDiscArea: checked } 
+                })}
+              />
+            </div>
+
+            <div className="pt-4 border-t border-coal-200 dark:border-coal-600">
+              <div className="flex items-center space-x-2">
+                <Switch
+                  id="gallery-annotated"
+                  checked={report.gallery.includeAnnotated}
+                  onCheckedChange={(checked) => updateReportConfig({ 
+                    gallery: { ...report.gallery, includeAnnotated: checked } 
+                  })}
+                />
+                <Label htmlFor="gallery-annotated" className="dark:text-dark-text">{t('settings.report.gallery.includeAnnotated')}</Label>
+              </div>
+              <div className="flex items-center space-x-2 mt-2">
+                <Switch
+                  id="gallery-original"
+                  checked={report.gallery.includeOriginal}
+                  onCheckedChange={(checked) => updateReportConfig({ 
+                    gallery: { ...report.gallery, includeOriginal: checked } 
+                  })}
+                />
+                <Label htmlFor="gallery-original" className="dark:text-dark-text">{t('settings.report.gallery.includeOriginal')}</Label>
+              </div>
+              {!report.gallery.includeAnnotated && !report.gallery.includeOriginal && (
+                <p className="text-sm text-red-500 mt-2">{t('settings.report.gallery.warning')}</p>
+              )}
+            </div>
+          </div>
+        </Card>
+      )}
+
+      {/* Signature */}
+      <Card className="p-6 dark:bg-dark-surface dark:border-coal-700">
+        <h2 className="text-xl font-semibold text-coal-800 dark:text-dark-text mb-4 flex items-center gap-2">
+          <PenTool className="h-5 w-5" />
+          {t('settings.report.signature.title')}
+        </h2>
+        <div>
+          <Label className="dark:text-dark-text">{t('settings.report.signature.text')}</Label>
+          <Input
+            value={report.signature.text}
+            onChange={(e) => updateReportConfig({ 
+              signature: { ...report.signature, text: e.target.value } 
+            })}
+            className="mt-1 dark:bg-dark-surface dark:border-coal-600 dark:text-dark-text"
+          />
+        </div>
+      </Card>
+    </div>
+  );
+}

@@ -1,0 +1,77 @@
+## Scientific References
+
+### Epidemiology and Disease Burden
+
+1. **Teo ZL, Tham YC, Yu M, et al.** "Global prevalence of diabetic retinopathy and projection of burden through 2045." *Ophthalmology*, 2021; 128(11):1580-1591.
+
+2. **Yau JWY, Rogers SL, Kawasaki R, et al.** "Global prevalence and major risk factors of diabetic retinopathy." *Diabetes Care*, 2012; 35(3):556-564.
+
+3. **International Diabetes Federation.** *IDF Diabetes Atlas*, 10th edition, 2021.
+
+4. **World Health Organization.** *World Report on Vision*, 2019.
+
+5. **MINSAL Chile.** *National Health Survey 2016-2017*.
+
+### AI for DR Detection — Foundational Studies
+
+6. **Gulshan V, Peng L, Coram M, et al.** "Development and Validation of a Deep Learning Algorithm for Detection of Diabetic Retinopathy in Retinal Fundus Photographs." *JAMA*, 2016; 316(22):2402-2410. — *Sensitivity 97.5%, specificity 93.4%.*
+
+7. **Ting DSW, Cheung CY, Lim G, et al.** "Development and Validation of a Deep Learning System for Diabetic Retinopathy and Related Eye Diseases Using Retinal Images From Multiethnic Populations." *JAMA*, 2017; 318(22):2211-2223. — *AUC 0.936 for referable DR, validated across multiethnic populations.*
+
+8. **Abràmoff MD, Lavin PT, Birch M, et al.** "Pivotal trial of an autonomous AI-based diagnostic system for detection of diabetic retinopathy in primary care offices." *npj Digital Medicine*, 2018; 1:39. — *First FDA approval of autonomous AI for diagnosis.*
+
+9. **Raumviboonsuk P, Krause J, et al.** "Deep learning versus human graders for classifying diabetic retinopathy severity in a nationwide screening program." *npj Digital Medicine*, 2019; 2:25.
+
+10. **Natarajan S, Jain A, et al.** "Diagnostic accuracy of community-based diabetic retinopathy screening with an offline artificial intelligence system on a smartphone." *JAMA Ophthalmology*, 2019; 137(10):1182-1188. — *Validation of offline AI. Sensitivity 100%, specificity 88.4%.*
+
+### Meta-analyses
+
+11. **Islam MM, Yang HC, et al.** "Deep learning algorithms for detection of diabetic retinopathy: a systematic review and meta-analysis." *Computer Methods and Programs in Biomedicine*, 2020; 191:105320. — *Pooled sensitivity 91.9%, specificity 91.3%.*
+
+### Cost-effectiveness
+
+12. **Tufail A, et al.** "Automated diabetic retinopathy image assessment software: diagnostic accuracy and cost-effectiveness." *Ophthalmology*, 2017; 124(3):343-351. — *50% reduction in screening costs.*
+
+13. **Xie Y, et al.** "Artificial intelligence for teleophthalmology-based diabetic retinopathy screening: an economic analysis." *Lancet Digital Health*, 2020; 2(5):e240-e249.
+
+14. **Liew G, Michaelides M, Bunce C.** "A comparison of the causes of blindness certifications in England and Wales in working age adults." *BMJ Open*, 2014; 4:e004015. — *DR ceased to be the leading cause of blindness after a national screening program.*
+
+### Privacy, Edge Computing, and Medical AI
+
+15. **Kaissis GA, et al.** "Secure, privacy-preserving and federated machine learning in medical imaging." *Nature Machine Intelligence*, 2020; 2:305-311.
+
+16. **Rieke N, et al.** "The future of digital health with federated learning." *npj Digital Medicine*, 2020; 3:119.
+
+17. **Price WN, Cohen IG.** "Privacy in the Age of Medical Big Data." *Nature Medicine*, 2019; 25:37-43.
+
+### Implementation and Barriers
+
+18. **Beede E, Baylor E, et al.** "A Human-Centered Evaluation of a Deep Learning System Deployed in Clinics for the Detection of Diabetic Retinopathy." *CHI Conference on Human Factors in Computing Systems*, 2020. — *Documented Google ARDA failures due to internet dependency in Thailand.*
+
+19. **Piyasena MMPN, et al.** "Systematic review on barriers and enablers for access to diabetic retinopathy screening services." *PLoS ONE*, 2019; 14(4):e0198979.
+
+20. **Resnikoff S, et al.** "Estimated number of ophthalmologists worldwide: will we meet the needs?" *British Journal of Ophthalmology*, 2020; 104(4):588-592.
+
+### Telemedicine for DR
+
+21. **Scanlon PH.** "The English National Screening Programme for diabetic retinopathy 2003-2016." *Acta Diabetologica*, 2017; 54(6):515-525.
+
+22. **Shi L, Wu H, Dong J, et al.** "Telemedicine for detecting diabetic retinopathy: a systematic review and meta-analysis." *British Journal of Ophthalmology*, 2015; 99(6):823-831.
+
+### Public Datasets (validation)
+
+The Messidor / Messidor-2 images used in the validation experiments are
+**kindly provided by the Messidor program partners** (see
+<https://www.adcis.net/en/third-party/messidor/>).
+
+23. **Decencière E, Zhang X, Cazuguel G, et al.** "Feedback on a publicly distributed image database: the Messidor database." *Image Analysis & Stereology*, 2014; 33(3):231-234. ISSN 1854-5165. <http://www.ias-iss.org/ojs/IAS/article/view/1155> — <https://doi.org/10.5566/ias.1155>
+
+24. **Abràmoff MD, Folk JC, Han DP, Walker JD, Williams DF, Russell SR, Massin P, Cochener B, Gain P, Tang L, Lamard M, Moga DC, Quellec G, Niemeijer M.** "Automated analysis of retinal images for detection of referable diabetic retinopathy." *JAMA Ophthalmology*, 2013; 131(3):351-357. <https://doi.org/10.1001/jamaophthalmol.2013.1743>
+
+25. **Krause J, Gulshan V, Rahimy E, et al.** "Grader variability and the importance of reference standards for evaluating machine learning models for diabetic retinopathy." *Ophthalmology*, 2018; 125(8):1264-1272. <https://doi.org/10.1016/j.ophtha.2018.01.034> — *source of the adjudicated Messidor-2 grades.*
+
+26. **Porwal P, Pachade S, Kokare M, et al.** "IDRiD: Diabetic Retinopathy – Segmentation and Grading Challenge." *Medical Image Analysis*, 2020; 59:101561. <https://doi.org/10.1016/j.media.2019.101561> — *IDRiD dataset (segmentation, localization, grading); licensed CC BY 4.0. Data descriptor: Porwal P, et al. "Indian Diabetic Retinopathy Image Dataset (IDRiD): A Database for Diabetic Retinopathy Screening Research." Data, 2018; 3(3):25. <https://doi.org/10.3390/data3030025>*
+
+27. **Li T, Gao Y, Wang K, Guo S, Liu H, Kang H.** "Diagnostic assessment of deep learning algorithms for diabetic retinopathy screening." *Information Sciences*, 2019; 501:511-522. <https://doi.org/10.1016/j.ins.2019.06.011> — *DDR dataset (DR grading, lesion segmentation and detection); research use only, images not redistributable.*
+
+28. **Asia Pacific Tele-Ophthalmology Society (APTOS).** "APTOS 2019 Blindness Detection." Kaggle, 2019. <https://www.kaggle.com/c/aptos2019-blindness-detection> — *3,662 training images with ICDR grades (single grader); used under the competition data rules.*

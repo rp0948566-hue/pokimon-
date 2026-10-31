@@ -1,0 +1,145 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+dird
+artifacts
+*.local
+
+# Local LLM weights (downloaded on-demand to <app_data>/llm/, also for repo safety)
+*.gguf
+
+# Reportes de muestra pesados (no versionar; regenerables desde la app)
+docs/sample-report-*.pdf
+
+# Encrypted `.dird` exports — sensitive clinical data, never commit
+*.dird
+
+# SQLite/SQLCipher local databases
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+
+# Environment variables (solo archivos locales personales)
+.env.local
+.env.development.local
+.env.production.local
+
+# Claude Code local state
+.claude/
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# === Validation (experiment-1-idrid / experiment-2-aptos) ===
+validation/datasets/*
+!validation/datasets/.gitkeep
+
+# Large binaries / model weights — never version
+validation/**/*.zip
+validation/**/*.onnx
+validation/**/*.pt
+validation/**/*.pth
+validation/**/*.npy
+
+# Heavy local-only artifacts (overlays, COCO export, raw detection dumps)
+validation/experiment-1-idrid/results/_local_heavy/
+validation/**/raw_detections*.csv
+
+# Images: version result plots, NOT raw/overlay imagery
+validation/**/*.jpg
+validation/**/*.jpeg
+validation/**/*.tif
+validation/**/*.tiff
+validation/**/*.webp
+validation/**/*.bmp
+validation/**/*.png
+!validation/**/results/**/*.png
+
+# CSVs: version metrics/summary, raw dumps already excluded above
+validation/**/*.csv
+!validation/**/results/**/*.csv
+validation/**/raw_detections*.csv
+
+# Misc
+validation/aptos_extracted/
+validation/**/messidor_extracted/
+validation/**/ddr_extracted/
+validation/aptos_markers/
+validation/__pycache__/
+validation/.claude/
+
+# RetinaCare native build outputs, Python environments, models and local records
+native/target/
+dist/
+ai_engine/.venv/
+ai_engine/**/__pycache__/
+ai_engine/**/*.pyc
+models/**/*.pt
+models/**/*.pth
+models/**/*.onnx
+models/**/*.gguf
+datasets/**
+!datasets/README.md
+*.sqlite
+
+# Internal-only docs (not for the public repo)
+AUDIT.md
+docs/internal/sample-report-2026-01-05.pdf
+
+# Vendored agent skills (clone pinned in AGENTS.md; never commit a nested repo)
+skills/vendor/
+
+# Local analysis snapshots and generated Python bytecode
+.enola/
+__pycache__/
+*.py[cod]
+# Stage II persistent weights and their conversion manifests (verified; never committed)
+models/stage2_hsmoe_aunet/
+models/stage2_swinhrunetpp/
+models/stage3_lgdrg/
+
+# RetinaCare-Training-Lab: research lab inside the project. Source (trainlab/, scripts/, configs/, tests/, docs) stays versionable.
+/RetinaCare-Training-Lab/.venv*/
+/RetinaCare-Training-Lab/.env
+/RetinaCare-Training-Lab/kaggle.json
+/RetinaCare-Training-Lab/data/
+/RetinaCare-Training-Lab/models/
+/RetinaCare-Training-Lab/experiments/
+/RetinaCare-Training-Lab/checkpoints/
+/RetinaCare-Training-Lab/exports/
+/RetinaCare-Training-Lab/graphs/
+/RetinaCare-Training-Lab/scratch/
+/RetinaCare-Training-Lab/logs/
+/RetinaCare-Training-Lab/reports/data_audit/
+/RetinaCare-Training-Lab/reports/figures/
+/RetinaCare-Training-Lab/**/__pycache__/
+/RetinaCare-Training-Lab/.pytest_cache/
+/RetinaCare-Training-Lab/**/*.ckpt
+/RetinaCare-Training-Lab/**/*.pt
+/RetinaCare-Training-Lab/**/*.pth
+/RetinaCare-Training-Lab/**/*.onnx
+/RetinaCare-Training-Lab/**/*.safetensors
+/RetinaCare-Training-Lab/**/*.zip
+/RetinaCare-Training-Lab/**/*.tif
+/RetinaCare-Training-Lab/**/*.tiff
+/RetinaCare-Training-Lab/**/*.png
+/RetinaCare-Training-Lab/**/*.jpg
+/RetinaCare-Training-Lab/**/*.jpeg

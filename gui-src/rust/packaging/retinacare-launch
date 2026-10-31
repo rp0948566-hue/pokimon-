@@ -1,0 +1,70 @@
+#!/usr/bin/env bash
+# RetinaCare launcher: sets the runtime, starts the local Ollama if it is not up, runs the app.
+# Paths come from ~/.config/retinacare/launcher.env (written by install.sh); nothing here needs a terminal.
+set -u
+HERE="$(cd "$(dirname "$(readlink -f "$0")")" && pwd)"
+STATE="${XDG_STATE_HOME:-$HOME/.local/state}/retinacare"
+mkdir -p "$STATE"
+LOG="$STATE/launcher.log"
+log() { printf '%s %s\n' "$(date '+%F %T')" "$*" >>"$LOG"; }
+
+# shellcheck disable=SC1090
+[ -r "${XDG_CONFIG_HOME:-$HOME/.config}/retinacare/launcher.env" ] && . "${XDG_CONFIG_HOME:-$HOME/.config}/retinacare/launcher.env"
+
+# One window at a time: two instances would fight over the encrypted database.
+exec 9>"$STATE/app.lock"
+if ! flock -n 9; then
+  log "already running"
+  command -v notify-send >/dev/null && notify-send -i retinacare RetinaCare "RetinaCare is already open."
+  exit 0
+fi
+
+OLLAMA_ADDR="${RETINACARE_OLLAMA_ADDR:-127.0.0.1:11435}"
+MODEL="${RETINACARE_OLLAMA_MODEL:-llama3.2:3b}"
+export RETINACARE_UI=v2
+export RETINACARE_PROVIDER="${RETINACARE_PROVIDER:-auto}"
+export RETINACARE_OLLAMA_URL="http://$OLLAMA_ADDR"
+[ -n "${RETINACARE_MODELS_DIR:-}" ] && export RETINACARE_MODELS_DIR
+[ -n "${CUDA_LIB_DIRS:-}" ] && export LD_LIBRARY_PATH="$CUDA_LIB_DIRS${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+
+up() { curl -fsS -m 2 "http://$OLLAMA_ADDR/api/tags" 2>/dev/null; }
+
+# Start the user-level Ollama only when nothing answers on its port; never touch other services.
+OLLAMA_PID=""
+if up >/dev/null; then
+  log "ollama already running on $OLLAMA_ADDR"
+elif [ -x "${OLLAMA_BIN:-}" ]; then
+  OLLAMA_HOST="$OLLAMA_ADDR" OLLAMA_MODELS="${OLLAMA_MODELS:-}" setsid "$OLLAMA_BIN" serve >>"$STATE/ollama.log" 2>&1 &
+  OLLAMA_PID=$!
+  log "started ollama pid $OLLAMA_PID on $OLLAMA_ADDR"
+else
+  log "ollama not found (OLLAMA_BIN='${OLLAMA_BIN:-}'); chat will report it as unavailable"
+fi
+
+# Model check runs beside the GUI so the window never waits on it.
+(
+  for _ in $(seq 1 150); do
+    if tags="$(up)"; then
+      case "$tags" in
+        *"\"$MODEL\""*)
+          # An empty generate request only loads the model onto the GPU, so the first chat reply is instant.
+          # The app unloads it itself before a retinal analysis, so Stage II keeps its VRAM.
+          curl -fsS -m 60 "http://$OLLAMA_ADDR/api/generate" -d "{\"model\":\"$MODEL\",\"keep_alive\":\"2m\"}" >/dev/null 2>&1 \
+            && log "model $MODEL preloaded" || log "model $MODEL preload failed" ;;
+        *) log "model $MODEL MISSING; run: ollama pull $MODEL" ;;
+      esac
+      exit 0
+    fi
+    sleep 0.2
+  done
+  log "ollama did not answer within 30 s"
+) &
+
+log "launching $HERE/retinacare provider=$RETINACARE_PROVIDER"
+"$HERE/retinacare" "$@" >>"$STATE/app.log" 2>&1
+CODE=$?
+log "app exited with $CODE"
+
+# Stop only the Ollama this launcher started, so it does not keep the GPU memory.
+[ -n "$OLLAMA_PID" ] && kill "$OLLAMA_PID" 2>/dev/null
+exit "$CODE"

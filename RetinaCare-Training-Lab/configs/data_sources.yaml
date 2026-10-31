@@ -1,0 +1,44 @@
+# Official sources only. "auto" = scripted download possible once the user has authorised access.
+aptos:
+  url: https://www.kaggle.com/competitions/aptos2019-blindness-detection/data
+  access: "Kaggle sign-in + accept competition rules (user action). CLI only after that."
+  method: auto_kaggle
+  kaggle_competition: aptos2019-blindness-detection
+  est_gib: 11
+  tasks: [grading_5class, screening_binary]
+  labels: "train.csv diagnosis 0..4; public test labels unavailable"
+  citation: "Kaggle APTOS 2019 Blindness Detection (Asia Pacific Tele-Ophthalmology Society)"
+idrid:
+  url: https://idrid.grand-challenge.org/Data/
+  mirror: https://ieee-dataport.org/open-access/indian-diabetic-retinopathy-image-dataset-idrid
+  access: "IEEE DataPort / Grand Challenge login + dataset licence (user action). No direct unauthenticated link."
+  method: manual
+  est_gib: 2.5
+  tasks: [grading_5class, lesion_MA_HE_EX_SE]
+  labels: "516 graded (413 train/103 test); 81 lesion-annotated (54 train/27 test); official partitions"
+  citation: "Porwal et al., IDRiD, Data 2018"
+drive:
+  url: https://drive.grand-challenge.org/
+  access: "Grand Challenge registration + challenge rules (user action). Test references are withheld."
+  method: manual
+  est_gib: 0.05
+  tasks: [vessel_segmentation]
+  labels: "20 training images with manual vessel masks + FOV masks; 20 test images (references withheld)"
+  citation: "Staal et al., IEEE TMI 2004"
+fgadr:
+  url: https://github.com/csyizhou/FGADR
+  access: "Restricted non-commercial research agreement + approval. NEVER auto-downloaded."
+  method: manual_restricted
+  est_gib: 6
+  tasks: [lesion_segmentation]
+  labels: "Seg-set 1842 pixel-annotated images; Grade-set availability unverified"
+  citation: "Zhou et al., FGADR, IEEE TMI 2020"
+ddr:
+  url: https://github.com/nkicsl/DDR-dataset
+  access: "Author-linked public Google Drive folder (also Baidu). Licence CC BY-NC-SA 4.0 (non-commercial research, share-alike, cite Li et al. 2019). No login click-through, but Drive quota may block."
+  method: auto_gdrive
+  gdrive_folder_id: 1z6tSFmxW_aNayUqVxx6h6bY4kwGzUTEC
+  est_gib: 14
+  tasks: [grading_5class_plus_ungradable, lesion_segmentation_subset_MA_HE_EX_SE]
+  labels: "grading 0-4 + 5 (ungradable) in split txt files; lesion masks for the segmentation subset only (verify after download)"
+  citation: "Li et al., Information Sciences 501 (2019) 511-522"

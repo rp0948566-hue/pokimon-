@@ -1,0 +1,19 @@
+{
+  "name": "pokerescue-sentinel-workspace",
+  "version": "0.1.0",
+  "private": true,
+  "description": "PokéRescue Sentinel disaster-response command-center workspace",
+  "packageManager": "pnpm@12.15.0",
+  "scripts": {
+    "dev": "pnpm --filter @pokerescue/desktop dev",
+    "build": "pnpm --filter @pokerescue/contracts build && pnpm --filter @pokerescue/desktop build",
+    "typecheck": "pnpm --filter @pokerescue/contracts typecheck && pnpm --filter @pokerescue/desktop typecheck",
+    "lint": "pnpm --filter @pokerescue/desktop lint",
+    "test": "pnpm --filter @pokerescue/contracts test && pnpm --filter @pokerescue/desktop test",
+    "tauri": "pnpm --filter @pokerescue/desktop tauri"
+  },
+  "devDependencies": {
+    "prettier": "^3.5.1",
+    "typescript": "^5.7.3"
+  }
+}

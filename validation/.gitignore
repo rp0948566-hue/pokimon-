@@ -1,0 +1,21 @@
+# Raw / extracted datasets (download separately, not versioned)
+data/
+datasets/
+
+# Model weights (live in the dird_models repo)
+models/*.onnx
+models/*.pt
+
+# Heavy local-only experiment artifacts (regenerable)
+experiment-1-idrid/results/_local_heavy/
+**/raw_detections*.csv
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Editor
+.idea/
+.vscode/
